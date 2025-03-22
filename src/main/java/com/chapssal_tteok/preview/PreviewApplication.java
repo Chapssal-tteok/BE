@@ -1,13 +1,13 @@
-package com.chapssal_tteok.backend;
+package com.chapssal_tteok.preview;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendApplication {
+public class PreviewApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
+		SpringApplication.run(PreviewApplication.class, args);
 	}
 
 }
