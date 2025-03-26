@@ -36,6 +36,7 @@ public class User extends BaseEntity {
     private String password; // 비밀번호
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean active = true; // 활성화 여부 (기본값 true)
 
     private LocalDateTime deactivatedAt; // 비활성화 시간
