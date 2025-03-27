@@ -14,6 +14,7 @@ public class UserRequestDTO {
     @Builder
     @AllArgsConstructor
     public static class CreateUserDTO {
+
         @NotBlank(message = "username은 필수 입력 값입니다.")
         @Size(min = 2, max = 20, message = "username은 2~20자 사이여야 합니다.")
         private String username;
