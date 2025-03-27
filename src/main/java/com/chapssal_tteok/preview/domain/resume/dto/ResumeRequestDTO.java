@@ -21,9 +21,6 @@ public class ResumeRequestDTO {
     @Getter
     public static class UpdateResumeDTO {
 
-        @NotNull(message = "이력서 ID는 필수입니다.")
-        private Long resumeId;
-
         private String title;
     }
 }

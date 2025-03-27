@@ -18,8 +18,8 @@ public class ResumeQueryServiceImpl implements ResumeQueryService {
     private final SecurityUtil securityUtil;
 
     @Override
-    public Resume findResume(Long resumeId) {
-        
+    public Resume getResumeById(Long resumeId) {
+
         // 현재 로그인 상태 확인
         securityUtil.getCurrentUser();
 

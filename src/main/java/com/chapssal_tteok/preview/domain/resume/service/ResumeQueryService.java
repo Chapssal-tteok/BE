@@ -4,5 +4,5 @@ import com.chapssal_tteok.preview.domain.resume.entity.Resume;
 
 public interface ResumeQueryService {
 
-    Resume findResume(Long resumeId);
+    Resume getResumeById(Long resumeId);
 }

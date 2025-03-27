@@ -35,12 +35,12 @@ public class ResumeCommandServiceImpl implements ResumeCommandService {
 
     @Override
     @Transactional
-    public Resume updateResume(ResumeRequestDTO.UpdateResumeDTO request) {
+    public Resume updateResume(Long resumeId, ResumeRequestDTO.UpdateResumeDTO request) {
 
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();
 
-        Resume resume = resumeRepository.findById(request.getResumeId())
+        Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new ResumeHandler(ErrorStatus.RESUME_NOT_FOUND));
 
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용

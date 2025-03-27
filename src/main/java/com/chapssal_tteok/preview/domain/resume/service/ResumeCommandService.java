@@ -7,7 +7,7 @@ public interface ResumeCommandService {
 
     Resume createResume(ResumeRequestDTO.CreateResumeDTO request);
 
-    Resume updateResume(ResumeRequestDTO.UpdateResumeDTO request);
+    Resume updateResume(Long resumeId, ResumeRequestDTO.UpdateResumeDTO request);
 
     void deleteResume(Long resumeId);
 }
