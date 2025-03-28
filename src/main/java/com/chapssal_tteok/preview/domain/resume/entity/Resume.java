@@ -28,4 +28,8 @@ public class Resume extends BaseEntity {
 
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ResumeQA> resumeQAs;
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
 }
