@@ -1,6 +1,7 @@
 package com.chapssal_tteok.preview.domain.resumeqa.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 public class ResumeQaRequestDTO {
@@ -8,10 +9,7 @@ public class ResumeQaRequestDTO {
     @Getter
     public static class CreateResumeQaDTO {
 
-        @NotBlank(message = "이력서 ID는 필수 입력 값입니다.")
-        private Long resumeId;
-
-        @NotBlank(message = "번호는 필수 입력 값입니다.")
+        @NotNull(message = "번호는 필수 입력 값입니다.")
         private Long number;
 
         @NotBlank(message = "질문은 필수 입력 값입니다.")

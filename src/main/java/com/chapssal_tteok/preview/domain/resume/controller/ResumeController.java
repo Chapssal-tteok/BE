@@ -40,8 +40,9 @@ public class ResumeController {
 
     @Operation(summary = "자기소개서 수정", description = "자기소개서 ID를 통해 특정 자기소개서를 수정합니다.")
     @PatchMapping("/{resume_id}")
-    public ApiResponse<ResumeResponseDTO.ResumeDTO> updateResume(@PathVariable Long resume_id,
-                                                                 @RequestBody @Valid ResumeRequestDTO.UpdateResumeDTO request) {
+    public ApiResponse<ResumeResponseDTO.ResumeDTO> updateResume(
+            @PathVariable Long resume_id,
+            @RequestBody @Valid ResumeRequestDTO.UpdateResumeDTO request) {
 
         Resume resume = resumeCommandService.updateResume(resume_id, request);
 

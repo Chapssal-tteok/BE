@@ -27,12 +27,12 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
 
     @Override
     @Transactional
-    public ResumeQa createResumeQa(ResumeQaRequestDTO.CreateResumeQaDTO request) {
+    public ResumeQa createResumeQa(Long resumeId, ResumeQaRequestDTO.CreateResumeQaDTO request) {
 
         // 현재 로그인 상태 확인
         securityUtil.getCurrentUser();
 
-        Resume resume = resumeRepository.findById(request.getResumeId())
+        Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new ResumeHandler(ErrorStatus.RESUME_NOT_FOUND));
 
         ResumeQa newResumeQa = ResumeQaConverter.toResumeQa(request, resume);
@@ -42,7 +42,7 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
 
     @Override
     @Transactional
-    public ResumeQa updateResumeQa(Long resumeQaId, ResumeQaRequestDTO.UpdateResumeQaDTO request) {
+    public ResumeQa updateResumeQa(Long resumeId, Long resumeQaId, ResumeQaRequestDTO.UpdateResumeQaDTO request) {
 
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();
@@ -71,7 +71,7 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
 
     @Override
     @Transactional
-    public void deleteResumeQa(Long resumeQaId) {
+    public void deleteResumeQa(Long resumeId, Long resumeQaId) {
 
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();

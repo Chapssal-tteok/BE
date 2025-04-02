@@ -5,9 +5,9 @@ import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 
 public interface ResumeQaCommandService {
 
-    ResumeQa createResumeQa(ResumeQaRequestDTO.CreateResumeQaDTO request);
+    ResumeQa createResumeQa(Long resumeId, ResumeQaRequestDTO.CreateResumeQaDTO request);
 
-    ResumeQa updateResumeQa(Long resumeQaId, ResumeQaRequestDTO.UpdateResumeQaDTO request);
+    ResumeQa updateResumeQa(Long resumeId, Long resumeQaId, ResumeQaRequestDTO.UpdateResumeQaDTO request);
 
-    void deleteResumeQa(Long resumeId);
+    void deleteResumeQa(Long resumeId, Long resumeQaId);
 }
