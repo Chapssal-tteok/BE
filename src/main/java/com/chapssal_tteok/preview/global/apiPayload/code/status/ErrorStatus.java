@@ -42,7 +42,10 @@ public enum ErrorStatus implements BaseErrorCode {
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "TOKEN4005", "유효하지 않은 리프레시 토큰입니다."),
 
     // 자기소개서 관련 에러
-    RESUME_NOT_FOUND(HttpStatus.NOT_FOUND, "RESUME4401", "자기소개서가 존재하지 않습니다.");
+    RESUME_NOT_FOUND(HttpStatus.NOT_FOUND, "RESUME4401", "자기소개서가 존재하지 않습니다."),
+
+    // 자기소개서 문답 관련 에러
+    RESUME_QA_NOT_FOUND(HttpStatus.NOT_FOUND, "RESUMEQA4401", "자기소개서 문잡이 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
