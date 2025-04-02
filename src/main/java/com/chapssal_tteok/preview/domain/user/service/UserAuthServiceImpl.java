@@ -34,6 +34,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     // login
     @Override
     public JwtResponse login(LoginRequestDTO loginRequestDto) {
+
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
@@ -51,6 +52,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public UserResponseDTO.UserInfoDTO updateUserRole (Long userId, Role newRole) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
@@ -60,6 +62,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public JwtResponse refresh(String refreshToken) {
+
         log.info("🔁 Refreshing Token");
         // Refresh Token 유효성 검사
         jwtTokenProvider.validateToken(refreshToken);

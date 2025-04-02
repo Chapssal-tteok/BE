@@ -24,6 +24,7 @@ public class UserAuthController {
     @Operation(summary = "회원 가입", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/register")
     public ApiResponse<RegisterResponseDTO> register (@RequestBody @Valid UserRequestDTO.CreateUserDTO userRequestDto){
+
         RegisterResponseDTO responseDto = userCommandService.registerUser(userRequestDto);
 
         return ApiResponse.onSuccess(responseDto);
@@ -32,6 +33,7 @@ public class UserAuthController {
     @Operation(summary = "로그인", description = "사용자가 로그인하여 JWT 토큰을 받습니다.")
     @PostMapping("/login")
     public ApiResponse<JwtResponse> login (@RequestBody @Valid LoginRequestDTO loginRequestDto) {
+
         JwtResponse jwtResponse = userAuthService.login(loginRequestDto);
 
         return ApiResponse.onSuccess(jwtResponse);
@@ -40,6 +42,7 @@ public class UserAuthController {
     @Operation(summary = "리프레시 토큰을 이용한 토큰 갱신", description = "리프레시 토큰을 통해 새로운 엑세스 토큰을 발급받습니다.")
     @PostMapping("/refresh")
     public ApiResponse<JwtResponse> refresh(@RequestBody RefreshRequestDTO refreshRequestDTO) {
+
         String refreshToken = refreshRequestDTO.getRefreshToken();
         log.info("🔁 Refresh Token: {}", refreshToken);
 
@@ -53,6 +56,7 @@ public class UserAuthController {
     @PatchMapping("/{user_id}/role")
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<UserResponseDTO.UserInfoDTO> changeRole(@PathVariable Long user_id, @RequestParam Role newRole) {
+
         UserResponseDTO.UserInfoDTO userInfoDTO = userAuthService.updateUserRole(user_id, newRole);
 
         return ApiResponse.onSuccess(userInfoDTO);

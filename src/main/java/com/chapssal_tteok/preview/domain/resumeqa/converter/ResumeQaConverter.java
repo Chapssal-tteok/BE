@@ -8,6 +8,7 @@ import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 public class ResumeQaConverter {
 
     public static ResumeQaResponseDTO.CreateResumeQaResultDTO toCreateResumeQaResultDTO(ResumeQa resumeQa) {
+
         return ResumeQaResponseDTO.CreateResumeQaResultDTO.builder()
                 .resumeQaId(resumeQa.getId())
                 .resumeId(resumeQa.getResume().getId())
@@ -20,6 +21,7 @@ public class ResumeQaConverter {
     }
 
     public static ResumeQaResponseDTO.ResumeQaDTO toResumeQaDTO(ResumeQa resumeQa) {
+
         return ResumeQaResponseDTO.ResumeQaDTO.builder()
                 .resumeQaId(resumeQa.getId())
                 .resumeId(resumeQa.getResume().getId())
@@ -33,6 +35,7 @@ public class ResumeQaConverter {
     }
 
     public static ResumeQa toResumeQa(ResumeQaRequestDTO.CreateResumeQaDTO request, Resume resume) {
+
         return ResumeQa.builder()
                 .resume(resume)
                 .number(request.getNumber())

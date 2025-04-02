@@ -15,6 +15,7 @@ public class ResumeQaResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateResumeQaResultDTO {
+
         private Long resumeQaId;
         private Long resumeId;
         private Long number;
@@ -30,6 +31,7 @@ public class ResumeQaResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ResumeQaDTO {
+
         private Long resumeQaId;
         private Long resumeId;
         private Long number;
