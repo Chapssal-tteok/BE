@@ -61,6 +61,7 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Override
     public void deleteUser() {
+
         // 현재 로그인된 사용자 정보 가져오기
         User currentUser = securityUtil.getCurrentUser(); // 로그인한 사용자 (username 또는 userId 기반)
 
@@ -77,6 +78,7 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Override
     public boolean isUsernameUnique(String username) {
+
         Optional<User> user = userRepository.findByUsername(username);
         return user.isEmpty();
     }

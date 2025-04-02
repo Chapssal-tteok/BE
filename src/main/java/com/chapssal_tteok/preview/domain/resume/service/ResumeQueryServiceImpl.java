@@ -23,7 +23,7 @@ public class ResumeQueryServiceImpl implements ResumeQueryService {
         // 현재 로그인 상태 확인
         securityUtil.getCurrentUser();
 
-        return resumeRepository.findById(resumeId)
+        return resumeRepository.findWithQasById(resumeId)
                 .orElseThrow(() -> new ResumeHandler(ErrorStatus.RESUME_NOT_FOUND));
     }
 }

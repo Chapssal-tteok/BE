@@ -13,6 +13,7 @@ public class UserResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UserDTO {
+
         private String username;
         private String name;
         private String email;
@@ -23,6 +24,7 @@ public class UserResponseDTO {
     @NoArgsConstructor
     @Builder
     public static class UserInfoDTO {
+
         private Role role;
         private String username;
         private String name;

@@ -6,6 +6,7 @@ import com.chapssal_tteok.preview.domain.user.entity.User;
 public class UserConverter {
 
     public static UserResponseDTO.UserDTO toUserDTO(User user) {
+
         return UserResponseDTO.UserDTO.builder()
                 .username(user.getUsername())
                 .name(user.getName())
@@ -14,6 +15,7 @@ public class UserConverter {
     }
 
     public static UserResponseDTO.UserInfoDTO toUserInfoDTO(User user) {
+
         return UserResponseDTO.UserInfoDTO.builder()
                 .role(user.getRole())
                 .username(user.getUsername())

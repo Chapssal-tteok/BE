@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ResumeQA extends BaseEntity {
+public class ResumeQa extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +31,16 @@ public class ResumeQA extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String analysis;
+
+    public void updateQuestion(String question) {
+        this.question = question;
+    }
+
+    public void updateAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void updateAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
 }

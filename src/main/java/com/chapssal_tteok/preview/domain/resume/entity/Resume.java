@@ -1,6 +1,6 @@
 package com.chapssal_tteok.preview.domain.resume.entity;
 
-import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQA;
+import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 import com.chapssal_tteok.preview.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -27,7 +27,7 @@ public class Resume extends BaseEntity {
     private String title;
 
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ResumeQA> resumeQAs;
+    private List<ResumeQa> resumeQas;
 
     public void updateTitle(String title) {
         this.title = title;
