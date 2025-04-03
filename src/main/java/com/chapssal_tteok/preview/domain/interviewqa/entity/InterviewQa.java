@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class InterviewQA extends BaseEntity {
+public class InterviewQa extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +37,24 @@ public class InterviewQA extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String analysis;
+
+    public void updateQuestion(String question) {
+        this.question = question;
+    }
+
+    public void updateQuestionAudio(String questionAudio) {
+        this.questionAudio = questionAudio;
+    }
+
+    public void updateAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void updateAnswerAudio(String answerAudio) {
+        this.answerAudio = answerAudio;
+    }
+
+    public void updateAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
 }

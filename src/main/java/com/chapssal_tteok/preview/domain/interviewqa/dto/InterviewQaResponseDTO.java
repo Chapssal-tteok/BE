@@ -1,6 +1,5 @@
-package com.chapssal_tteok.preview.domain.interview.dto;
+package com.chapssal_tteok.preview.domain.interviewqa.dto;
 
-import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaResponseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,19 +7,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class InterviewResponseDTO {
+public class InterviewQaResponseDTO {
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateInterviewResultDTO {
+    public static class CreateInterviewQaResultDTO {
 
+        private Long interviewQaId;
         private Long interviewId;
-        private Long userId;
-        private String title;
+        private Long number;
+        private String question;
+        private String questionAudio;
+        private String answer;
+        private String answerAudio;
+        private String analysis;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
     }
@@ -29,12 +32,16 @@ public class InterviewResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class InterviewDTO {
+    public static class InterviewQaDTO {
 
+        private Long interviewQaId;
         private Long interviewId;
-        private Long userId;
-        private String title;
-        private List<InterviewQaResponseDTO.InterviewQaDTO> interviewQas;
+        private Long number;
+        private String question;
+        private String questionAudio;
+        private String answer;
+        private String answerAudio;
+        private String analysis;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
