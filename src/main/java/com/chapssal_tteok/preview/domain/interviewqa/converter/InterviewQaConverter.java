@@ -4,10 +4,6 @@ import com.chapssal_tteok.preview.domain.interview.entity.Interview;
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaRequestDTO;
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaResponseDTO;
 import com.chapssal_tteok.preview.domain.interviewqa.entity.InterviewQa;
-import com.chapssal_tteok.preview.domain.resume.entity.Resume;
-import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaRequestDTO;
-import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaResponseDTO;
-import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 
 public class InterviewQaConverter {
 
