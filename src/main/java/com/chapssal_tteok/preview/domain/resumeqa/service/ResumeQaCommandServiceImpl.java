@@ -9,6 +9,7 @@ import com.chapssal_tteok.preview.domain.resumeqa.repository.ResumeQaRepository;
 import com.chapssal_tteok.preview.domain.user.entity.Role;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
+import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.UserHandler;
@@ -50,6 +51,11 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
         ResumeQa resumeQa = resumeQaRepository.findById(resumeQaId)
                 .orElseThrow(() -> new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_FOUND));
 
+        // URL의 resumeId와 DB의 resumeQa의 resume ID가 일치하는지 확인
+        if (!resumeQa.getResume().getId().equals(resumeId)) {
+            throw new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_MATCH);
+        }
+
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용
         if (!user.getId().equals(resumeQa.getResume().getUser().getId()) &&
                 !user.getRole().equals(Role.ADMIN)) {
@@ -78,6 +84,11 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
 
         ResumeQa resumeQa = resumeQaRepository.findById(resumeQaId)
                 .orElseThrow(() -> new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_FOUND));
+
+        // URL의 resumeId와 DB의 resumeQa의 resume ID가 일치하는지 확인
+        if (!resumeQa.getResume().getId().equals(resumeId)) {
+            throw new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_MATCH);
+        }
 
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용
         if (!user.getId().equals(resumeQa.getResume().getUser().getId()) &&
