@@ -45,12 +45,14 @@ public enum ErrorStatus implements BaseErrorCode {
     RESUME_NOT_FOUND(HttpStatus.NOT_FOUND, "RESUME4401", "자기소개서가 존재하지 않습니다."),
 
     // 자기소개서 문답 관련 에러
+    RESUME_QA_NOT_MATCH(HttpStatus.BAD_REQUEST, "RESUMEQA4001", "요청한 자기소개서와 문답이 일치하지 않습니다."),
     RESUME_QA_NOT_FOUND(HttpStatus.NOT_FOUND, "RESUMEQA4401", "자기소개서 문답이 존재하지 않습니다."),
 
     // 면접 관련 에러
     INTERVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "INTERVIEW4401", "면접이 존재하지 않습니다."),
 
     // 면접 문답 관련 에러
+    INTERVIEW_QA_NOT_MATCH(HttpStatus.BAD_REQUEST, "INTERVIEWQA4001", "요청한 면접과 문답이 일치하지 않습니다."),
     INTERVIEW_QA_NOT_FOUND(HttpStatus.NOT_FOUND, "INTERVIEWQA4401", "면접 문답이 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;

@@ -50,6 +50,11 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
         InterviewQa interviewQa = interviewQaRepository.findById(interviewQaId)
                 .orElseThrow(() -> new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_FOUND));
 
+        // URL의 interviewId와 DB의 interviewQa의 interview ID가 일치하는지 확인
+        if (!interviewQa.getInterview().getId().equals(interviewId)) {
+            throw new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_MATCH);
+        }
+
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용
         if (!user.getId().equals(interviewQa.getInterview().getUser().getId()) &&
                 !user.getRole().equals(Role.ADMIN)) {
@@ -84,6 +89,11 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
 
         InterviewQa interviewQa = interviewQaRepository.findById(interviewQaId)
                 .orElseThrow(() -> new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_FOUND));
+
+        // URL의 interviewId와 DB의 interviewQa의 interview ID가 일치하는지 확인
+        if (!interviewQa.getInterview().getId().equals(interviewId)) {
+            throw new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_MATCH);
+        }
 
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용
         if (!user.getId().equals(interviewQa.getInterview().getUser().getId()) &&
