@@ -1,13 +1,13 @@
-package com.chapssal_tteok.preview.domain.resumeqa.dto;
+package com.chapssal_tteok.preview.domain.interviewqa.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
-public class ResumeQaRequestDTO {
+public class InterviewQaRequestDTO {
 
     @Getter
-    public static class CreateResumeQaDTO {
+    public static class CreateInterviewQaDTO {
 
         @NotNull(message = "번호는 필수 입력 값입니다.")
         private Long number;
@@ -15,17 +15,25 @@ public class ResumeQaRequestDTO {
         @NotBlank(message = "질문은 필수 입력 값입니다.")
         private String question;
 
+        private String questionAudio;
+
         private String answer;
+
+        private String answerAudio;
 
         private String analysis;
     }
 
     @Getter
-    public static class UpdateResumeQaDTO {
+    public static class UpdateInterviewQaDTO {
 
         private String question;
 
+        private String questionAudio;
+
         private String answer;
+
+        private String answerAudio;
 
         private String analysis;
     }
