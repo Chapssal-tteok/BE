@@ -23,7 +23,7 @@ public class InterviewQueryServiceImpl implements InterviewQueryService {
         // 현재 로그인 상태 확인
         securityUtil.getCurrentUser();
 
-        return interviewRepository.findById(interviewId)
+        return interviewRepository.findWithQasById(interviewId)
                 .orElseThrow(() -> new InterviewHandler(ErrorStatus.INTERVIEW_NOT_FOUND));
     }
 }

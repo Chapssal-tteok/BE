@@ -27,7 +27,7 @@ public class Interview extends BaseEntity {
     private String title;
 
     @OneToMany(mappedBy = "interview", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InterviewQa> interviewQAs;
+    private List<InterviewQa> interviewQas;
 
     public void updateTitle(String title) {
         this.title = title;
