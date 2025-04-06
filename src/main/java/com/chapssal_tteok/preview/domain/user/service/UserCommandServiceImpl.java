@@ -77,13 +77,6 @@ public class UserCommandServiceImpl implements UserCommandService {
     }
 
     @Override
-    public boolean isUsernameUnique(String username) {
-
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.isEmpty();
-    }
-
-    @Override
     public User updateUserInfo(UserRequestDTO.UpdateUserDTO updateUserDTO) {
 
         User currentUser = securityUtil.getCurrentUser();

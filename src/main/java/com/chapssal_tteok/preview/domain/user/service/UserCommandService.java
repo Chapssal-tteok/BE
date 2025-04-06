@@ -10,7 +10,5 @@ public interface UserCommandService {
 
     void deleteUser();
 
-    boolean isUsernameUnique(String username);
-
     User updateUserInfo(UserRequestDTO.UpdateUserDTO updateUserDTO);
 }

@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/register",
                                 "/api/auth/login",
                                 "/api/auth/refresh",
-                                "/api/auth/users/isunique/**",
+                                "/api/auth/users/exist",
                                 "/api/auth/mail").permitAll()
                         .anyRequest().authenticated())
                 // UsernamePasswordAuthenticationFilter 전에 JwtAuthenticationFilter 추가

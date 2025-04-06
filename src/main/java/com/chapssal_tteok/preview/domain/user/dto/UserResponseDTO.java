@@ -30,4 +30,13 @@ public class UserResponseDTO {
         private String name;
         private String email;
     }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class UserExistenceDTO {
+
+        private boolean exists;
+    }
 }

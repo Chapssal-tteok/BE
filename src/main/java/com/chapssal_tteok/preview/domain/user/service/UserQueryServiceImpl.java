@@ -18,7 +18,14 @@ public class UserQueryServiceImpl implements UserQueryService {
     private final UserRepository userRepository;
 
     @Override
+    public boolean isUsernameExist(String username) {
+
+        return userRepository.findByUsername(username).isPresent();
+    }
+
+    @Override
     public UserResponseDTO.UserInfoDTO getUserInfo(String username) {
+
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
