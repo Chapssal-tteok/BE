@@ -2,7 +2,6 @@ package com.chapssal_tteok.preview.domain.user.entity;
 
 import com.chapssal_tteok.preview.global.common.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;

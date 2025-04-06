@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -63,7 +61,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     public void deleteUser() {
 
         // 현재 로그인된 사용자 정보 가져오기
-        User currentUser = securityUtil.getCurrentUser(); // 로그인한 사용자 (username 또는 userId 기반)
+        User currentUser = securityUtil.getCurrentUser();
 
         if (currentUser == null) {
             throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
