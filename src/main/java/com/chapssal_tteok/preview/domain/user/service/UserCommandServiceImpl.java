@@ -80,23 +80,21 @@ public class UserCommandServiceImpl implements UserCommandService {
     public User updateUserInfo(UserRequestDTO.UpdateUserDTO updateUserDTO) {
 
         User currentUser = securityUtil.getCurrentUser();
-        Boolean isChanged = false;
-
-        if (updateUserDTO.getName() != null) {
-            currentUser.setName(updateUserDTO.getName());
-            isChanged = true;
-        }
 
         if (!passwordEncoder.matches(updateUserDTO.getCurrentPassword(), currentUser.getPassword())) {
             throw new UserHandler(ErrorStatus.INVALID_PASSWORD);
-        } else {
-            if (updateUserDTO.getPassword() != null) {
-                currentUser.setPassword(passwordEncoder.encode(updateUserDTO.getPassword()));
-                isChanged = true;
-            }
         }
 
-        if (!isChanged) {
+        boolean isNameChanged = currentUser.updateName(updateUserDTO.getName());
+        boolean isEmailChanged = currentUser.updateEmail(updateUserDTO.getEmail());
+        boolean isPasswordChanged = false;
+
+        if (updateUserDTO.getPassword() != null) {
+            String newEncodedPassword = passwordEncoder.encode(updateUserDTO.getPassword());
+            isPasswordChanged = currentUser.updatePassword(newEncodedPassword);
+        }
+
+        if (!isNameChanged && !isEmailChanged && !isPasswordChanged) {
             throw new UserHandler(ErrorStatus.NO_CHANGE_DETECTED);
         }
 

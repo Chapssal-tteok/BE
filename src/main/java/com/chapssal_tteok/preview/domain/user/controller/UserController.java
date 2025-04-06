@@ -1,6 +1,5 @@
 package com.chapssal_tteok.preview.domain.user.controller;
 
-import com.chapssal_tteok.preview.domain.resume.dto.ResumeRequestDTO;
 import com.chapssal_tteok.preview.domain.user.converter.UserConverter;
 import com.chapssal_tteok.preview.domain.user.dto.UserRequestDTO;
 import com.chapssal_tteok.preview.domain.user.dto.UserResponseDTO;
@@ -37,6 +36,15 @@ public class UserController {
     public ApiResponse<UserResponseDTO.UserInfoDTO> getUserInfo() {
 
         User user = userQueryService.getCurrentUser();
+
+        return ApiResponse.onSuccess(UserConverter.toUserInfoDTO(user));
+    }
+
+    @Operation(summary = "사용자 정보 수정", description = "현재 로그인된 사용자의 정보를 수정합니다.")
+    @PatchMapping("/info")
+    public ApiResponse<UserResponseDTO.UserInfoDTO> updateUserInfo(@RequestBody @Valid UserRequestDTO.UpdateUserDTO request) {
+
+        User user = userCommandService.updateUserInfo(request);
 
         return ApiResponse.onSuccess(UserConverter.toUserInfoDTO(user));
     }
