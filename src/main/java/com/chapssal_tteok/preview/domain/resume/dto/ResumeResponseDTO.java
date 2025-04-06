@@ -40,4 +40,18 @@ public class ResumeResponseDTO {
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime updatedAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SimpleResumeDTO {
+
+        private Long resumeId;
+        private String title;
+        @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+        private LocalDateTime createdAt;
+        @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+        private LocalDateTime updatedAt;
+    }
 }
