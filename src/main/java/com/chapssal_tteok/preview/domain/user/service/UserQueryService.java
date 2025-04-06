@@ -6,5 +6,5 @@ public interface UserQueryService {
 
     boolean isUsernameExist(String username);
 
-    UserResponseDTO.UserInfoDTO getUserInfo(String username);
+    UserResponseDTO.UserInfoDTO getUserInfo();
 }

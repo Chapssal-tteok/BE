@@ -24,6 +24,16 @@ public class UserController {
     public ApiResponse<UserResponseDTO.UserExistenceDTO> checkUserExistence(@RequestParam String username) {
 
         boolean exists = userQueryService.isUsernameExist(username);
+
         return ApiResponse.onSuccess(new UserResponseDTO.UserExistenceDTO(exists));
+    }
+
+    @Operation(summary = "사용자 정보 조회", description = "현재 로그인된 사용자의 정보를 조회합니다.")
+    @GetMapping("/users/info")
+    public ApiResponse<UserResponseDTO.UserInfoDTO> getCurrentUserInfo() {
+
+        UserResponseDTO.UserInfoDTO userInfoDTO = userQueryService.getUserInfo();
+
+        return ApiResponse.onSuccess(userInfoDTO);
     }
 }
