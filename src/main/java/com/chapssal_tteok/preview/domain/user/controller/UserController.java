@@ -62,7 +62,7 @@ public class UserController {
         return ApiResponse.onSuccess(UserConverter.toUserInfoDTO(user));
     }
 
-    @Operation(summary = "현재 로그인한 사용자의 자기소개서 목록 조회", description = "현재 로그인한 사용자가 작성한 자기소개서(Resume) 목록을 조회합니다.")
+    @Operation(summary = "현재 로그인한 사용자의 자기소개서 목록 조회", description = "현재 로그인한 사용자의 자기소개서 목록을 조회합니다.")
     @GetMapping("/resumes")
     public ApiResponse<List<ResumeResponseDTO.SimpleResumeDTO>> getMyResumes() {
 
@@ -75,7 +75,7 @@ public class UserController {
         return ApiResponse.onSuccess(response);
     }
 
-    @Operation(summary = "현재 로그인한 사용자의 모의면접 목록 조회", description = "현재 로그인한 사용자가 작성한 모의면접(Interview) 목록을 조회합니다.")
+    @Operation(summary = "현재 로그인한 사용자의 면접 목록 조회", description = "현재 로그인한 사용자의 면접 목록을 조회합니다.")
     @GetMapping("/interviews")
     public ApiResponse<List<InterviewResponseDTO.SimpleInterviewDTO>> getMyInterviews() {
 

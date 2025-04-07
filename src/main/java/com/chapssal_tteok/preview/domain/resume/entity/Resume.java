@@ -26,6 +26,10 @@ public class Resume extends BaseEntity {
 
     private String title;
 
+    private String company;
+
+    private String position;
+
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ResumeQa> resumeQas;
 
