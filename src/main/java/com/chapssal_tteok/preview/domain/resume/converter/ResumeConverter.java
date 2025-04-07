@@ -46,6 +46,17 @@ public class ResumeConverter {
                 .build();
     }
 
+    public static ResumeResponseDTO.SimpleResumeDTO toSimpleResumeDTO(Resume resume) {
+
+        return ResumeResponseDTO.SimpleResumeDTO.builder()
+                .resumeId(resume.getId())
+                .username(resume.getUser().getUsername())
+                .title(resume.getTitle())
+                .createdAt(resume.getCreatedAt())
+                .updatedAt(resume.getUpdatedAt())
+                .build();
+    }
+
     public static Resume toResume(ResumeRequestDTO.CreateResumeDTO request, User user) {
 
         return Resume.builder()

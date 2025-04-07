@@ -4,7 +4,6 @@ import com.chapssal_tteok.preview.domain.interview.dto.InterviewRequestDTO;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewResponseDTO;
 import com.chapssal_tteok.preview.domain.interview.entity.Interview;
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaResponseDTO;
-import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaResponseDTO;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 
 import java.util.List;
@@ -44,6 +43,17 @@ public class InterviewConverter {
                 .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
                 .interviewQas(interviewQaDTOs)
+                .createdAt(interview.getCreatedAt())
+                .updatedAt(interview.getUpdatedAt())
+                .build();
+    }
+
+    public static InterviewResponseDTO.SimpleInterviewDTO toSimpleInterviewDTO(Interview interview) {
+
+        return InterviewResponseDTO.SimpleInterviewDTO.builder()
+                .interviewId(interview.getId())
+                .username(interview.getUser().getUsername())
+                .title(interview.getTitle())
                 .createdAt(interview.getCreatedAt())
                 .updatedAt(interview.getUpdatedAt())
                 .build();
