@@ -21,6 +21,8 @@ public class ResumeResponseDTO {
         private Long resumeId;
         private String username;
         private String title;
+        private String company;
+        private String position;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
     }
@@ -34,6 +36,8 @@ public class ResumeResponseDTO {
         private Long resumeId;
         private String username;
         private String title;
+        private String company;
+        private String position;
         private List<ResumeQaResponseDTO.ResumeQaDTO> resumeQas;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
@@ -50,6 +54,8 @@ public class ResumeResponseDTO {
         private Long resumeId;
         private String username;
         private String title;
+        private String company;
+        private String position;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")

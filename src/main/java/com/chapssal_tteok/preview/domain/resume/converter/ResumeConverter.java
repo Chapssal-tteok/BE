@@ -17,6 +17,8 @@ public class ResumeConverter {
                 .resumeId(resume.getId())
                 .username(resume.getUser().getUsername())
                 .title(resume.getTitle())
+                .company(resume.getCompany())
+                .position(resume.getPosition())
                 .createdAt(resume.getCreatedAt())
                 .build();
     }
@@ -40,6 +42,8 @@ public class ResumeConverter {
                 .resumeId(resume.getId())
                 .username(resume.getUser().getUsername())
                 .title(resume.getTitle())
+                .company(resume.getCompany())
+                .position(resume.getPosition())
                 .resumeQas(resumeQaDTOs)
                 .createdAt(resume.getCreatedAt())
                 .updatedAt(resume.getUpdatedAt())
@@ -52,6 +56,8 @@ public class ResumeConverter {
                 .resumeId(resume.getId())
                 .username(resume.getUser().getUsername())
                 .title(resume.getTitle())
+                .company(resume.getCompany())
+                .position(resume.getPosition())
                 .createdAt(resume.getCreatedAt())
                 .updatedAt(resume.getUpdatedAt())
                 .build();
@@ -62,6 +68,8 @@ public class ResumeConverter {
         return Resume.builder()
                 .user(user)
                 .title(request.getTitle())
+                .company(request.getCompany())
+                .position(request.getPosition())
                 .build();
     }
 }

@@ -26,6 +26,10 @@ public class Interview extends BaseEntity {
 
     private String title;
 
+    private String company;
+
+    private String position;
+
     @OneToMany(mappedBy = "interview", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InterviewQa> interviewQas;
 
