@@ -56,8 +56,9 @@ public class UserAuthServiceImpl implements UserAuthService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
-        User updatedUser = user.updateRole(newRole);
-        return UserConverter.toUserInfoDTO(updatedUser);
+        user.updateRole(newRole);
+
+        return UserConverter.toUserInfoDTO(user);
     }
 
     @Override

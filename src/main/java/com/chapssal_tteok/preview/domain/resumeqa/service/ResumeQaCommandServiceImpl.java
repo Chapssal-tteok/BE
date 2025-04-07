@@ -9,7 +9,6 @@ import com.chapssal_tteok.preview.domain.resumeqa.repository.ResumeQaRepository;
 import com.chapssal_tteok.preview.domain.user.entity.Role;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
-import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.UserHandler;
