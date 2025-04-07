@@ -40,6 +40,9 @@ public class UserRequestDTO {
         @Size(min = 2, max = 20, message = "이름은 2~20자 사이여야 합니다.")
         private String name;
 
+        @Email(message = "올바른 이메일 형식이어야 합니다.")
+        private String email;
+
         @NotBlank(message = "현재 비밀번호는 필수 입력 값입니다.")
         private String currentPassword;
 

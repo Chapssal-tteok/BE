@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -63,7 +61,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     public void deleteUser() {
 
         // 현재 로그인된 사용자 정보 가져오기
-        User currentUser = securityUtil.getCurrentUser(); // 로그인한 사용자 (username 또는 userId 기반)
+        User currentUser = securityUtil.getCurrentUser();
 
         if (currentUser == null) {
             throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
@@ -77,33 +75,24 @@ public class UserCommandServiceImpl implements UserCommandService {
     }
 
     @Override
-    public boolean isUsernameUnique(String username) {
-
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.isEmpty();
-    }
-
-    @Override
     public User updateUserInfo(UserRequestDTO.UpdateUserDTO updateUserDTO) {
 
         User currentUser = securityUtil.getCurrentUser();
-        Boolean isChanged = false;
-
-        if (updateUserDTO.getName() != null) {
-            currentUser.setName(updateUserDTO.getName());
-            isChanged = true;
-        }
 
         if (!passwordEncoder.matches(updateUserDTO.getCurrentPassword(), currentUser.getPassword())) {
             throw new UserHandler(ErrorStatus.INVALID_PASSWORD);
-        } else {
-            if (updateUserDTO.getPassword() != null) {
-                currentUser.setPassword(passwordEncoder.encode(updateUserDTO.getPassword()));
-                isChanged = true;
-            }
         }
 
-        if (!isChanged) {
+        boolean isNameChanged = currentUser.updateName(updateUserDTO.getName());
+        boolean isEmailChanged = currentUser.updateEmail(updateUserDTO.getEmail());
+        boolean isPasswordChanged = false;
+
+        if (updateUserDTO.getPassword() != null) {
+            String newEncodedPassword = passwordEncoder.encode(updateUserDTO.getPassword());
+            isPasswordChanged = currentUser.updatePassword(newEncodedPassword);
+        }
+
+        if (!isNameChanged && !isEmailChanged && !isPasswordChanged) {
             throw new UserHandler(ErrorStatus.NO_CHANGE_DETECTED);
         }
 

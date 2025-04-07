@@ -2,7 +2,6 @@ package com.chapssal_tteok.preview.domain.user.entity;
 
 import com.chapssal_tteok.preview.global.common.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -41,20 +40,35 @@ public class User extends BaseEntity {
 
     private LocalDateTime deactivatedAt; // 비활성화 시간
 
-    public User updateRole(Role newRole) {
-        this.role = newRole;
-        return this;
+    public boolean updateRole(Role newRole) {
+        if (newRole != null && !newRole.equals(this.role)) {
+            this.role = newRole;
+            return true;
+        }
+        return false;
     }
 
-    public void setName(@Size(min = 2, max = 20, message = "이름은 2~20자 사이여야 합니다.") String name) {
-        this.name = name;
+    public boolean updateName(String newName) {
+        if (newName != null && !newName.equals(this.name)) {
+            this.name = newName;
+            return true;
+        }
+        return false;
     }
 
-    public void setUsername(@Size(min = 2, max = 20, message = "사용자명은 2~20자 사이여야 합니다.") String username) {
-        this.username = username;
+    public boolean updateEmail(String newEmail) {
+        if (newEmail != null && !newEmail.equals(this.email)) {
+            this.email = newEmail;
+            return true;
+        }
+        return false;
     }
 
-    public void setPassword(String encode) {
-        this.password = encode;
+    public boolean updatePassword(String newEncodedPassword) {
+        if (newEncodedPassword != null && !newEncodedPassword.equals(this.password)) {
+            this.password = newEncodedPassword;
+            return true;
+        }
+        return false;
     }
 }

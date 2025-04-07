@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,4 +13,6 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
     @Query("SELECT i FROM Interview i LEFT JOIN FETCH i.interviewQas WHERE i.id = :interviewId")
     Optional<Interview> findWithQasById(Long interviewId);
+
+    List<Interview> findAllByUserId(Long userId);
 }
