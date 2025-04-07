@@ -19,7 +19,7 @@ public class ResumeResponseDTO {
     public static class CreateResumeResultDTO {
 
         private Long resumeId;
-        private Long userId;
+        private String username;
         private String title;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
@@ -32,7 +32,7 @@ public class ResumeResponseDTO {
     public static class ResumeDTO {
 
         private Long resumeId;
-        private Long userId;
+        private String username;
         private String title;
         private List<ResumeQaResponseDTO.ResumeQaDTO> resumeQas;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
@@ -48,6 +48,7 @@ public class ResumeResponseDTO {
     public static class SimpleResumeDTO {
 
         private Long resumeId;
+        private String username;
         private String title;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;

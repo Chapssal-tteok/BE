@@ -15,7 +15,7 @@ public class ResumeConverter {
 
         return ResumeResponseDTO.CreateResumeResultDTO.builder()
                 .resumeId(resume.getId())
-                .userId(resume.getUser().getId())
+                .username(resume.getUser().getUsername())
                 .title(resume.getTitle())
                 .createdAt(resume.getCreatedAt())
                 .build();
@@ -38,7 +38,7 @@ public class ResumeConverter {
 
         return ResumeResponseDTO.ResumeDTO.builder()
                 .resumeId(resume.getId())
-                .userId(resume.getUser().getId())
+                .username(resume.getUser().getUsername())
                 .title(resume.getTitle())
                 .resumeQas(resumeQaDTOs)
                 .createdAt(resume.getCreatedAt())

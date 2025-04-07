@@ -16,7 +16,7 @@ public class InterviewConverter {
 
         return InterviewResponseDTO.CreateInterviewResultDTO.builder()
                 .interviewId(interview.getId())
-                .userId(interview.getUser().getId())
+                .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
                 .createdAt(interview.getCreatedAt())
                 .build();
@@ -41,7 +41,7 @@ public class InterviewConverter {
 
         return InterviewResponseDTO.InterviewDTO.builder()
                 .interviewId(interview.getId())
-                .userId(interview.getUser().getId())
+                .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
                 .interviewQas(interviewQaDTOs)
                 .createdAt(interview.getCreatedAt())

@@ -19,7 +19,7 @@ public class InterviewResponseDTO {
     public static class CreateInterviewResultDTO {
 
         private Long interviewId;
-        private Long userId;
+        private String username;
         private String title;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
@@ -32,7 +32,7 @@ public class InterviewResponseDTO {
     public static class InterviewDTO {
 
         private Long interviewId;
-        private Long userId;
+        private String username;
         private String title;
         private List<InterviewQaResponseDTO.InterviewQaDTO> interviewQas;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
@@ -48,6 +48,7 @@ public class InterviewResponseDTO {
     public static class SimpleInterviewDTO {
 
         private Long interviewId;
+        private String username;
         private String title;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
