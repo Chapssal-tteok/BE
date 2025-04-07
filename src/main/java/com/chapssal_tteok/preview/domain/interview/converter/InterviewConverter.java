@@ -17,6 +17,8 @@ public class InterviewConverter {
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
+                .company(interview.getCompany())
+                .position(interview.getPosition())
                 .createdAt(interview.getCreatedAt())
                 .build();
     }
@@ -42,6 +44,8 @@ public class InterviewConverter {
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
+                .company(interview.getCompany())
+                .position(interview.getPosition())
                 .interviewQas(interviewQaDTOs)
                 .createdAt(interview.getCreatedAt())
                 .updatedAt(interview.getUpdatedAt())
@@ -54,6 +58,8 @@ public class InterviewConverter {
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
                 .title(interview.getTitle())
+                .company(interview.getCompany())
+                .position(interview.getPosition())
                 .createdAt(interview.getCreatedAt())
                 .updatedAt(interview.getUpdatedAt())
                 .build();
@@ -64,6 +70,8 @@ public class InterviewConverter {
         return Interview.builder()
                 .user(user)
                 .title(request.getTitle())
+                .company(request.getCompany())
+                .position(request.getPosition())
                 .build();
     }
 }
