@@ -58,6 +58,17 @@ public class InterviewQaController {
         return ApiResponse.onSuccess(InterviewQaConverter.toCreateInterviewQaResultDTO(interviewQa));
     }
 
+    @Operation(summary = "AI 추가 면접 질문 생성", description = "기존 문답을 기반으로 follow-up 질문을 AI가 생성하고 저장합니다.")
+    @PostMapping("/follow-up")
+    public ApiResponse<InterviewQaResponseDTO.CreateInterviewQaResultDTO> generateFollowUp(
+            @PathVariable("interview_id") Long interviewId,
+            @RequestBody @Valid InterviewQaRequestDTO.GenerateFollowUpDTO request) {
+
+        InterviewQa followUpQa = interviewQaCommandService.generateFollowUpQuestion(interviewId, request);
+
+        return ApiResponse.onSuccess(InterviewQaConverter.toCreateInterviewQaResultDTO(followUpQa));
+    }
+
     @Operation(summary = "AI 면접 답변 분석", description = "질문, 답변, 자기소개서를 기반으로 AI가 분석 결과를 반환합니다.")
     @PostMapping("/{qa_id}/analyze")
     public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> analyzeAnswer(

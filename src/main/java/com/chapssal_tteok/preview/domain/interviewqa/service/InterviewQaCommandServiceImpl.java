@@ -72,6 +72,30 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
 
     @Override
     @Transactional
+    public InterviewQa generateFollowUpQuestion(Long interviewId, InterviewQaRequestDTO.GenerateFollowUpDTO request) {
+
+        // 현재 로그인 상태 확인
+        securityUtil.getCurrentUser();
+
+        Interview interview = interviewRepository.findById(interviewId)
+                .orElseThrow(() -> new InterviewHandler(ErrorStatus.INTERVIEW_NOT_FOUND));
+
+        int nextOrder = interviewQaRepository.findMaxOrderIndexByInterview(interview) + 1;
+
+        // AI 서버 호출
+        String question = aiClient.generateFollowUp(request);
+
+        InterviewQa interviewQa = InterviewQa.builder()
+                .interview(interview)
+                .orderIndex(nextOrder)
+                .question(question)
+                .build();
+
+        return interviewQaRepository.save(interviewQa);
+    }
+
+    @Override
+    @Transactional
     public InterviewQa analyzeAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.AnalyzeAnswerDTO request) {
 
         // 현재 로그인된 사용자 정보 가져오기

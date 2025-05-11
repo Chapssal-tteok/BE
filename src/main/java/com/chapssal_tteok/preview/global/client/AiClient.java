@@ -34,6 +34,24 @@ public class AiClient {
                 .block();
     }
 
+    public String generateFollowUp(InterviewQaRequestDTO.GenerateFollowUpDTO req) {
+        Map<String, String> body = Map.of(
+                "question", req.getQuestion(),
+                "answer", req.getAnswer()
+        );
+
+        return aiWebClient.post()
+                .uri("/interview/follow-up")
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, List<String>>>() {})
+                .map(res -> {
+                    List<String> followUps = res.get("followUps");
+                    return (followUps != null && !followUps.isEmpty()) ? String.join("\n", followUps) : null;
+                })
+                .block();
+    }
+
     public String analyzeAnswer(String question, String answer, String resume) {
         Map<String, String> body = Map.of(
                 "question", question,

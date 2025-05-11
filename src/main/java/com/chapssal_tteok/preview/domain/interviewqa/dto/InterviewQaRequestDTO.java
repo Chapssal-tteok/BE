@@ -35,6 +35,16 @@ public class InterviewQaRequestDTO {
     }
 
     @Getter
+    public static class GenerateFollowUpDTO {
+
+        @NotBlank
+        private String question;
+
+        @NotBlank
+        private String answer;
+    }
+
+    @Getter
     public static class AnalyzeAnswerDTO {
 
         @NotBlank
