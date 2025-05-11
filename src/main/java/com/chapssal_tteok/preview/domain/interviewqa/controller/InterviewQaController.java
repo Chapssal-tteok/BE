@@ -47,14 +47,49 @@ public class InterviewQaController {
         return ApiResponse.onSuccess(InterviewQaConverter.toCreateInterviewQaResultDTO(interviewQa));
     }
 
-    @Operation(summary = "면접 질문 및 답변 수정", description = "면접 문답 ID를 통해 특정 면접 질문 및 답변을 수정합니다.")
-    @PatchMapping("/{qa_id}")
-    public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> updateInterviewQa(
+    @Operation(summary = "AI 면접 질문 생성", description = "자기소개서와 회사/직무 정보를 바탕으로 AI가 면접 질문을 생성합니다.")
+    @PostMapping("/generate")
+    public ApiResponse<InterviewQaResponseDTO.CreateInterviewQaResultDTO> generateInterviewQuestion(
+            @PathVariable("interview_id") Long interviewId,
+            @RequestBody @Valid InterviewQaRequestDTO.GenerateQuestionDTO request) {
+
+        InterviewQa interviewQa = interviewQaCommandService.generateInterviewQuestion(interviewId, request);
+
+        return ApiResponse.onSuccess(InterviewQaConverter.toCreateInterviewQaResultDTO(interviewQa));
+    }
+
+    @Operation(summary = "면접 질문 수정", description = "면접 문답 ID를 통해 질문을 수정하고, 답변과 분석 내용을 초기화합니다.")
+    @PatchMapping("/{qa_id}/question")
+    public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> updateQuestion(
             @PathVariable Long interview_id,
             @PathVariable Long qa_id,
-            @RequestBody @Valid InterviewQaRequestDTO.UpdateInterviewQaDTO request) {
+            @RequestBody @Valid InterviewQaRequestDTO.UpdateQuestionDTO request) {
 
-        InterviewQa interviewQa = interviewQaCommandService.updateInterviewQa(interview_id, qa_id, request);
+        InterviewQa interviewQa = interviewQaCommandService.updateQuestion(interview_id, qa_id, request);
+
+        return ApiResponse.onSuccess(InterviewQaConverter.toInterviewQaDTO(interviewQa));
+    }
+
+    @Operation(summary = "면접 답변 수정", description = "면접 문답 ID를 통해 답변을 수정하고, 분석 내용을 초기화합니다.")
+    @PatchMapping("/{qa_id}/answer")
+    public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> updateAnswer(
+            @PathVariable Long interview_id,
+            @PathVariable Long qa_id,
+            @RequestBody @Valid InterviewQaRequestDTO.UpdateAnswerDTO request) {
+
+        InterviewQa interviewQa = interviewQaCommandService.updateAnswer(interview_id, qa_id, request);
+
+        return ApiResponse.onSuccess(InterviewQaConverter.toInterviewQaDTO(interviewQa));
+    }
+
+    @Operation(summary = "면접 분석 수정", description = "면접 문답 ID를 통해 분석 내용을 수정합니다.")
+    @PatchMapping("/{qa_id}/analysis")
+    public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> updateAnalysis(
+            @PathVariable Long interview_id,
+            @PathVariable Long qa_id,
+            @RequestBody @Valid InterviewQaRequestDTO.UpdateAnalysisDTO request) {
+
+        InterviewQa interviewQa = interviewQaCommandService.updateAnalysis(interview_id, qa_id, request);
 
         return ApiResponse.onSuccess(InterviewQaConverter.toInterviewQaDTO(interviewQa));
     }

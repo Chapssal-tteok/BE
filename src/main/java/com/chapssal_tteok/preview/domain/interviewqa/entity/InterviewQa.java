@@ -39,10 +39,6 @@ public class InterviewQa extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String analysis;
 
-    public void updateOrderIndex(Integer orderIndex) {
-        this.orderIndex = orderIndex;
-    }
-
     public void updateQuestion(String question) {
         this.question = question;
     }

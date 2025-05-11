@@ -7,7 +7,13 @@ public interface InterviewQaCommandService {
 
     InterviewQa createInterviewQa(Long interviewId, InterviewQaRequestDTO.CreateInterviewQaDTO request);
 
-    InterviewQa updateInterviewQa(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateInterviewQaDTO request);
+    InterviewQa generateInterviewQuestion(Long interviewId, InterviewQaRequestDTO.GenerateQuestionDTO request);
+
+    InterviewQa updateQuestion(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateQuestionDTO request);
+
+    InterviewQa updateAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateAnswerDTO request);
+
+    InterviewQa updateAnalysis(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateAnalysisDTO request);
 
     void deleteInterviewQa(Long interviewId, Long interviewQaId);
 }

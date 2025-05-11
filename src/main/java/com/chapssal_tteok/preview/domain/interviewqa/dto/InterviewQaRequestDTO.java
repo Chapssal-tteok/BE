@@ -22,6 +22,19 @@ public class InterviewQaRequestDTO {
     }
 
     @Getter
+    public static class GenerateQuestionDTO {
+
+        @NotBlank
+        private String company;
+
+        @NotBlank
+        private String position;
+
+        @NotBlank
+        private String resumeContent;
+    }
+
+    @Getter
     public static class UpdateInterviewQaDTO {
 
         private String question;
@@ -32,6 +45,31 @@ public class InterviewQaRequestDTO {
 
         private String answerAudio;
 
+        private String analysis;
+    }
+
+    @Getter
+    public static class UpdateQuestionDTO {
+
+        @NotBlank
+        private String question;
+
+        private String questionAudio;
+    }
+
+    @Getter
+    public static class UpdateAnswerDTO {
+
+        @NotBlank
+        private String answer;
+
+        private String answerAudio;
+    }
+
+    @Getter
+    public static class UpdateAnalysisDTO {
+
+        @NotBlank
         private String analysis;
     }
 }

@@ -12,6 +12,7 @@ import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.UserHandler;
+import com.chapssal_tteok.preview.global.client.AiClient;
 import com.chapssal_tteok.preview.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
     private final InterviewQaRepository interviewQaRepository;
     private final InterviewRepository interviewRepository;
     private final SecurityUtil securityUtil;
+    private final AiClient aiClient;
 
     @Override
     @Transactional
@@ -40,47 +42,78 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
         int nextOrderIndex = maxOrder + 1;
 
         InterviewQa newInterviewQa = InterviewQaConverter.toInterviewQa(request, interview, nextOrderIndex);
-        newInterviewQa.updateOrderIndex(nextOrderIndex);
 
         return interviewQaRepository.save(newInterviewQa);
     }
 
     @Override
     @Transactional
-    public InterviewQa updateInterviewQa(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateInterviewQaDTO request) {
+    public InterviewQa generateInterviewQuestion(Long interviewId, InterviewQaRequestDTO.GenerateQuestionDTO request) {
+
+        // 현재 로그인 상태 확인
+        securityUtil.getCurrentUser();
+
+        Interview interview = interviewRepository.findById(interviewId)
+                .orElseThrow(() -> new InterviewHandler(ErrorStatus.INTERVIEW_NOT_FOUND));
+
+        int nextOrder = interviewQaRepository.findMaxOrderIndexByInterview(interview) + 1;
+
+        // AI 서버 호출
+        String question = aiClient.generateQuestion(request);
+
+        InterviewQa interviewQa = InterviewQa.builder()
+                .interview(interview)
+                .orderIndex(nextOrder)
+                .question(question)
+                .build();
+
+        return interviewQaRepository.save(interviewQa);
+    }
+
+    @Override
+    @Transactional
+    public InterviewQa updateQuestion(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateQuestionDTO request) {
 
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();
 
-        InterviewQa interviewQa = interviewQaRepository.findById(interviewQaId)
-                .orElseThrow(() -> new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_FOUND));
+        InterviewQa interviewQa = validateQaOwnership(interviewId, interviewQaId, user);
 
-        // URL의 interviewId와 DB의 interviewQa의 interview ID가 일치하는지 확인
-        if (!interviewQa.getInterview().getId().equals(interviewId)) {
-            throw new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_MATCH);
-        }
+        interviewQa.updateQuestion(request.getQuestion());
+        interviewQa.updateQuestionAudio(request.getQuestionAudio());
+        interviewQa.updateAnswer(null);      // 답변 제거
+        interviewQa.updateAnswerAudio(null);
+        interviewQa.updateAnalysis(null);    // 분석 제거
 
-        // 자기 자신이거나 관리자 권한이 있는 경우만 허용
-        if (!user.getId().equals(interviewQa.getInterview().getUser().getId()) &&
-                !user.getRole().equals(Role.ADMIN)) {
-            throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
-        }
+        return interviewQaRepository.save(interviewQa);
+    }
 
-        if (request.getQuestion() != null) {
-            interviewQa.updateQuestion(request.getQuestion());
-        }
-        if (request.getQuestionAudio() != null) {
-            interviewQa.updateQuestionAudio(request.getQuestionAudio());
-        }
-        if (request.getAnswer() != null) {
-            interviewQa.updateAnswer(request.getAnswer());
-        }
-        if (request.getAnswerAudio() != null) {
-            interviewQa.updateAnswerAudio(request.getAnswerAudio());
-        }
-        if (request.getAnalysis() != null) {
-            interviewQa.updateAnalysis(request.getAnalysis());
-        }
+    @Override
+    @Transactional
+    public InterviewQa updateAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateAnswerDTO request) {
+
+        // 현재 로그인된 사용자 정보 가져오기
+        User user = securityUtil.getCurrentUser();
+
+        InterviewQa interviewQa = validateQaOwnership(interviewId, interviewQaId, user);
+
+        interviewQa.updateAnswer(request.getAnswer());
+        interviewQa.updateAnswerAudio(request.getAnswerAudio());
+        interviewQa.updateAnalysis(null);    // 분석 제거
+
+        return interviewQaRepository.save(interviewQa);
+    }
+
+    @Override
+    @Transactional
+    public InterviewQa updateAnalysis(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateAnalysisDTO request) {
+
+        // 현재 로그인된 사용자 정보 가져오기
+        User user = securityUtil.getCurrentUser();
+
+        InterviewQa interviewQa = validateQaOwnership(interviewId, interviewQaId, user);
+
+        interviewQa.updateAnalysis(request.getAnalysis());
 
         return interviewQaRepository.save(interviewQa);
     }
@@ -92,20 +125,26 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();
 
-        InterviewQa interviewQa = interviewQaRepository.findById(interviewQaId)
+        InterviewQa interviewQa = validateQaOwnership(interviewId, interviewQaId, user);
+
+        interviewQaRepository.delete(interviewQa);
+    }
+
+    private InterviewQa validateQaOwnership(Long interviewId, Long qaId, User user) {
+        // interviewQa 존재 여부 확인
+        InterviewQa qa = interviewQaRepository.findById(qaId)
                 .orElseThrow(() -> new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_FOUND));
 
         // URL의 interviewId와 DB의 interviewQa의 interview ID가 일치하는지 확인
-        if (!interviewQa.getInterview().getId().equals(interviewId)) {
+        if (!qa.getInterview().getId().equals(interviewId)) {
             throw new InterviewQaHandler(ErrorStatus.INTERVIEW_QA_NOT_MATCH);
         }
 
         // 자기 자신이거나 관리자 권한이 있는 경우만 허용
-        if (!user.getId().equals(interviewQa.getInterview().getUser().getId()) &&
-                !user.getRole().equals(Role.ADMIN)) {
+        if (!user.getId().equals(qa.getInterview().getUser().getId()) && !user.getRole().equals(Role.ADMIN)) {
             throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
         }
 
-        interviewQaRepository.delete(interviewQa);
+        return qa;
     }
 }

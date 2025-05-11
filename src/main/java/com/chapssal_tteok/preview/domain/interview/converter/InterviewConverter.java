@@ -3,11 +3,7 @@ package com.chapssal_tteok.preview.domain.interview.converter;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewRequestDTO;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewResponseDTO;
 import com.chapssal_tteok.preview.domain.interview.entity.Interview;
-import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaResponseDTO;
 import com.chapssal_tteok.preview.domain.user.entity.User;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class InterviewConverter {
 
