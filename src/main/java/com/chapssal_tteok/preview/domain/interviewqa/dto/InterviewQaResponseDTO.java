@@ -18,7 +18,7 @@ public class InterviewQaResponseDTO {
 
         private Long interviewQaId;
         private Long interviewId;
-        private Long number;
+        private Integer orderIndex;
         private String question;
         private String questionAudio;
         private String answer;
@@ -36,7 +36,7 @@ public class InterviewQaResponseDTO {
 
         private Long interviewQaId;
         private Long interviewId;
-        private Long number;
+        private Integer orderIndex;
         private String question;
         private String questionAudio;
         private String answer;

@@ -12,7 +12,7 @@ public class InterviewQaConverter {
         return InterviewQaResponseDTO.CreateInterviewQaResultDTO.builder()
                 .interviewQaId(interviewQa.getId())
                 .interviewId(interviewQa.getInterview().getId())
-                .number(interviewQa.getNumber())
+                .orderIndex(interviewQa.getOrderIndex())
                 .question(interviewQa.getQuestion())
                 .questionAudio(interviewQa.getQuestionAudio())
                 .answer(interviewQa.getAnswer())
@@ -27,7 +27,7 @@ public class InterviewQaConverter {
         return InterviewQaResponseDTO.InterviewQaDTO.builder()
                 .interviewQaId(interviewQa.getId())
                 .interviewId(interviewQa.getInterview().getId())
-                .number(interviewQa.getNumber())
+                .orderIndex(interviewQa.getOrderIndex())
                 .question(interviewQa.getQuestion())
                 .questionAudio(interviewQa.getQuestionAudio())
                 .answer(interviewQa.getAnswer())
@@ -38,11 +38,11 @@ public class InterviewQaConverter {
                 .build();
     }
 
-    public static InterviewQa toInterviewQa(InterviewQaRequestDTO.CreateInterviewQaDTO request, Interview interview) {
+    public static InterviewQa toInterviewQa(InterviewQaRequestDTO.CreateInterviewQaDTO request, Interview interview, Integer nextOrderIndex) {
 
         return InterviewQa.builder()
                 .interview(interview)
-                .number(request.getNumber())
+                .orderIndex(nextOrderIndex)
                 .question(request.getQuestion())
                 .questionAudio(request.getQuestionAudio())
                 .answer(request.getAnswer())

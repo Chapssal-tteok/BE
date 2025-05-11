@@ -12,7 +12,7 @@ public class ResumeQaConverter {
         return ResumeQaResponseDTO.CreateResumeQaResultDTO.builder()
                 .resumeQaId(resumeQa.getId())
                 .resumeId(resumeQa.getResume().getId())
-                .number(resumeQa.getNumber())
+                .orderIndex(resumeQa.getOrderIndex())
                 .question(resumeQa.getQuestion())
                 .answer(resumeQa.getAnswer())
                 .analysis(resumeQa.getAnalysis())
@@ -25,7 +25,7 @@ public class ResumeQaConverter {
         return ResumeQaResponseDTO.ResumeQaDTO.builder()
                 .resumeQaId(resumeQa.getId())
                 .resumeId(resumeQa.getResume().getId())
-                .number(resumeQa.getNumber())
+                .orderIndex(resumeQa.getOrderIndex())
                 .question(resumeQa.getQuestion())
                 .answer(resumeQa.getAnswer())
                 .analysis(resumeQa.getAnalysis())
@@ -34,11 +34,11 @@ public class ResumeQaConverter {
                 .build();
     }
 
-    public static ResumeQa toResumeQa(ResumeQaRequestDTO.CreateResumeQaDTO request, Resume resume) {
+    public static ResumeQa toResumeQa(ResumeQaRequestDTO.CreateResumeQaDTO request, Resume resume, Integer nextOrderIndex) {
 
         return ResumeQa.builder()
                 .resume(resume)
-                .number(request.getNumber())
+                .orderIndex(nextOrderIndex)
                 .question(request.getQuestion())
                 .answer(request.getAnswer())
                 .analysis(request.getAnalysis())
