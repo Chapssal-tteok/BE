@@ -12,6 +12,7 @@ import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.UserHandler;
+import com.chapssal_tteok.preview.global.client.AiClient;
 import com.chapssal_tteok.preview.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
     private final ResumeQaRepository resumeQaRepository;
     private final ResumeRepository resumeRepository;
     private final SecurityUtil securityUtil;
+    private final AiClient aiClient;
 
     @Override
     @Transactional
@@ -35,7 +37,9 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new ResumeHandler(ErrorStatus.RESUME_NOT_FOUND));
 
-        ResumeQa newResumeQa = ResumeQaConverter.toResumeQa(request, resume);
+        int nextOrder = resumeQaRepository.findMaxOrderIndexByResume(resume) + 1;
+
+        ResumeQa newResumeQa = ResumeQaConverter.toResumeQa(request, resume, nextOrder);
 
         return resumeQaRepository.save(newResumeQa);
     }
@@ -61,15 +65,47 @@ public class ResumeQaCommandServiceImpl implements ResumeQaCommandService {
             throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
         }
 
+        boolean questionUpdated = false;
+        boolean answerUpdated = false;
+
         if (request.getQuestion() != null) {
             resumeQa.updateQuestion(request.getQuestion());
+            questionUpdated = true;
         }
         if (request.getAnswer() != null) {
             resumeQa.updateAnswer(request.getAnswer());
+            answerUpdated = true;
         }
-        if (request.getAnalysis() != null) {
-            resumeQa.updateAnalysis(request.getAnalysis());
+
+        // 질문이나 답변 중 하나라도 수정되었다면 분석 내용을 초기화
+        if (questionUpdated || answerUpdated) {
+            resumeQa.updateAnalysis(null);
         }
+
+        return resumeQaRepository.save(resumeQa);
+    }
+
+    @Override
+    @Transactional
+    public ResumeQa analyzeResumeQa(Long resumeId, Long qaId, ResumeQaRequestDTO.AnalyzeResumeQaDTO request) {
+
+        // 현재 로그인된 사용자 정보 가져오기
+        User user = securityUtil.getCurrentUser();
+
+        ResumeQa resumeQa = resumeQaRepository.findById(qaId)
+                .orElseThrow(() -> new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_FOUND));
+
+        if (!resumeQa.getResume().getId().equals(resumeId)) {
+            throw new ResumeQaHandler(ErrorStatus.RESUME_QA_NOT_MATCH);
+        }
+
+        if (!user.getId().equals(resumeQa.getResume().getUser().getId()) && !user.getRole().equals(Role.ADMIN)) {
+            throw new UserHandler(ErrorStatus.USER_NOT_AUTHORIZED);
+        }
+
+        String analysis = aiClient.analyzeResumeQa(request);
+
+        resumeQa.updateAnalysis(analysis);
 
         return resumeQaRepository.save(resumeQa);
     }

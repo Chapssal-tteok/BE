@@ -21,7 +21,8 @@ public class InterviewQa extends BaseEntity {
     @JoinColumn(name = "interview_id")
     private Interview interview;
 
-    private Long number;
+    @Column(nullable = false)
+    private Integer orderIndex;
 
     @Column(columnDefinition = "TEXT")
     private String question;

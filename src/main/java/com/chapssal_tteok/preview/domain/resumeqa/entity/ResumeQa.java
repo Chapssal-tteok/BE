@@ -21,7 +21,8 @@ public class ResumeQa extends BaseEntity {
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    private Long number;
+    @Column(nullable = false)
+    private Integer orderIndex;
 
     @Column(columnDefinition = "TEXT")
     private String question;

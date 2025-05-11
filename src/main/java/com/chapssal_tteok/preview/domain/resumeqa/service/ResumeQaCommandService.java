@@ -9,5 +9,7 @@ public interface ResumeQaCommandService {
 
     ResumeQa updateResumeQa(Long resumeId, Long resumeQaId, ResumeQaRequestDTO.UpdateResumeQaDTO request);
 
+    ResumeQa analyzeResumeQa(Long resumeId, Long qaId, ResumeQaRequestDTO.AnalyzeResumeQaDTO request);
+
     void deleteResumeQa(Long resumeId, Long resumeQaId);
 }
