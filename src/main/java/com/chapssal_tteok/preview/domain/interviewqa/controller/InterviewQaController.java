@@ -5,11 +5,14 @@ import com.chapssal_tteok.preview.domain.interviewqa.converter.InterviewQaConver
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaRequestDTO;
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaResponseDTO;
 import com.chapssal_tteok.preview.domain.interviewqa.entity.InterviewQa;
+import com.chapssal_tteok.preview.domain.interviewqa.service.InterviewQaQueryService;
 import com.chapssal_tteok.preview.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth/interviews/{interview_id}/qas")
@@ -17,6 +20,21 @@ import org.springframework.web.bind.annotation.*;
 public class InterviewQaController {
 
     private final InterviewQaCommandService interviewQaCommandService;
+    private final InterviewQaQueryService interviewQaQueryService;
+
+    @Operation(summary = "면접 세트의 모든 문답 조회", description = "해당 면접 ID에 속한 모든 문답을 순서대로 반환합니다.")
+    @GetMapping
+    public ApiResponse<List<InterviewQaResponseDTO.InterviewQaDTO>> getInterviewQasByInterviewId(
+            @PathVariable("interview_id") Long interviewId) {
+
+        List<InterviewQa> qas = interviewQaQueryService.getOrderedQasByInterviewId(interviewId);
+
+        List<InterviewQaResponseDTO.InterviewQaDTO> response = qas.stream()
+                .map(InterviewQaConverter::toInterviewQaDTO)
+                .toList();
+
+        return ApiResponse.onSuccess(response);
+    }
 
     @Operation(summary = "면접 질문 및 답변 생성", description = "새로운 면접 질문 및 답변을 생성합니다.")
     @PostMapping

@@ -25,36 +25,7 @@ public class InterviewConverter {
 
     public static InterviewResponseDTO.InterviewDTO toInterviewDTO(Interview interview) {
 
-        List<InterviewQaResponseDTO.InterviewQaDTO> interviewQaDTOs = interview.getInterviewQas().stream()
-                .map(qa -> InterviewQaResponseDTO.InterviewQaDTO.builder()
-                        .interviewQaId(qa.getId())
-                        .interviewId(qa.getInterview().getId())
-                        .number(qa.getNumber())
-                        .question(qa.getQuestion())
-                        .questionAudio(qa.getQuestionAudio())
-                        .answer(qa.getAnswer())
-                        .answerAudio(qa.getAnswerAudio())
-                        .analysis(qa.getAnalysis())
-                        .createdAt(qa.getCreatedAt())
-                        .updatedAt(qa.getUpdatedAt())
-                        .build())
-                .collect(Collectors.toList());
-
         return InterviewResponseDTO.InterviewDTO.builder()
-                .interviewId(interview.getId())
-                .username(interview.getUser().getUsername())
-                .title(interview.getTitle())
-                .company(interview.getCompany())
-                .position(interview.getPosition())
-                .interviewQas(interviewQaDTOs)
-                .createdAt(interview.getCreatedAt())
-                .updatedAt(interview.getUpdatedAt())
-                .build();
-    }
-
-    public static InterviewResponseDTO.SimpleInterviewDTO toSimpleInterviewDTO(Interview interview) {
-
-        return InterviewResponseDTO.SimpleInterviewDTO.builder()
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
                 .title(interview.getTitle())

@@ -9,9 +9,6 @@ public class InterviewQaRequestDTO {
     @Getter
     public static class CreateInterviewQaDTO {
 
-        @NotNull(message = "번호는 필수 입력 값입니다.")
-        private Long number;
-
         @NotBlank(message = "질문은 필수 입력 값입니다.")
         private String question;
 

@@ -38,24 +38,6 @@ public class InterviewResponseDTO {
         private String title;
         private String company;
         private String position;
-        private List<InterviewQaResponseDTO.InterviewQaDTO> interviewQas;
-        @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-        private LocalDateTime createdAt;
-        @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-        private LocalDateTime updatedAt;
-    }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class SimpleInterviewDTO {
-
-        private Long interviewId;
-        private String username;
-        private String title;
-        private String company;
-        private String position;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
         private LocalDateTime createdAt;
         @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")

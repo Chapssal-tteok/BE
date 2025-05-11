@@ -21,7 +21,8 @@ public class InterviewQa extends BaseEntity {
     @JoinColumn(name = "interview_id")
     private Interview interview;
 
-    private Long number;
+    @Column(nullable = false)
+    private Integer orderIndex;
 
     @Column(columnDefinition = "TEXT")
     private String question;
@@ -37,6 +38,10 @@ public class InterviewQa extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String analysis;
+
+    public void updateOrderIndex(Integer orderIndex) {
+        this.orderIndex = orderIndex;
+    }
 
     public void updateQuestion(String question) {
         this.question = question;

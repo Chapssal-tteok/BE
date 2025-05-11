@@ -35,7 +35,12 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
         Interview interview = interviewRepository.findById(interviewId)
                 .orElseThrow(() -> new InterviewHandler(ErrorStatus.INTERVIEW_NOT_FOUND));
 
-        InterviewQa newInterviewQa = InterviewQaConverter.toInterviewQa(request, interview);
+        // 현재 interview의 마지막 orderIndex를 조회
+        Integer maxOrder = interviewQaRepository.findMaxOrderIndexByInterview(interview);
+        int nextOrderIndex = maxOrder + 1;
+
+        InterviewQa newInterviewQa = InterviewQaConverter.toInterviewQa(request, interview, nextOrderIndex);
+        newInterviewQa.updateOrderIndex(nextOrderIndex);
 
         return interviewQaRepository.save(newInterviewQa);
     }
