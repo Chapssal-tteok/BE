@@ -11,9 +11,6 @@ import java.util.Optional;
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
-    @Query("SELECT i FROM Interview i LEFT JOIN FETCH i.interviewQas WHERE i.id = :interviewId")
-    Optional<Interview> findWithQasById(Long interviewId);
-
     Optional<Interview> findById(Long interviewId);
 
     List<Interview> findAllByUserId(Long userId);

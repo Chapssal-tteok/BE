@@ -64,12 +64,12 @@ public class UserController {
 
     @Operation(summary = "현재 로그인한 사용자의 자기소개서 목록 조회", description = "현재 로그인한 사용자의 자기소개서 목록을 조회합니다.")
     @GetMapping("/resumes")
-    public ApiResponse<List<ResumeResponseDTO.SimpleResumeDTO>> getMyResumes() {
+    public ApiResponse<List<ResumeResponseDTO.ResumeDTO>> getMyResumes() {
 
         List<Resume> resumes = userQueryService.getMyResumes();
 
-        List<ResumeResponseDTO.SimpleResumeDTO> response = resumes.stream()
-                .map(ResumeConverter::toSimpleResumeDTO)
+        List<ResumeResponseDTO.ResumeDTO> response = resumes.stream()
+                .map(ResumeConverter::toResumeDTO)
                 .collect(Collectors.toList());
 
         return ApiResponse.onSuccess(response);

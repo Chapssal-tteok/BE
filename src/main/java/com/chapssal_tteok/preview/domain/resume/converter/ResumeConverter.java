@@ -25,34 +25,7 @@ public class ResumeConverter {
 
     public static ResumeResponseDTO.ResumeDTO toResumeDTO(Resume resume) {
 
-        List<ResumeQaResponseDTO.ResumeQaDTO> resumeQaDTOs = resume.getResumeQas().stream()
-                .map(qa -> ResumeQaResponseDTO.ResumeQaDTO.builder()
-                        .resumeQaId(qa.getId())
-                        .resumeId(qa.getResume().getId())
-                        .number(qa.getNumber())
-                        .question(qa.getQuestion())
-                        .answer(qa.getAnswer())
-                        .analysis(qa.getAnalysis())
-                        .createdAt(qa.getCreatedAt())
-                        .updatedAt(qa.getUpdatedAt())
-                        .build())
-                .collect(Collectors.toList());
-
         return ResumeResponseDTO.ResumeDTO.builder()
-                .resumeId(resume.getId())
-                .username(resume.getUser().getUsername())
-                .title(resume.getTitle())
-                .company(resume.getCompany())
-                .position(resume.getPosition())
-                .resumeQas(resumeQaDTOs)
-                .createdAt(resume.getCreatedAt())
-                .updatedAt(resume.getUpdatedAt())
-                .build();
-    }
-
-    public static ResumeResponseDTO.SimpleResumeDTO toSimpleResumeDTO(Resume resume) {
-
-        return ResumeResponseDTO.SimpleResumeDTO.builder()
                 .resumeId(resume.getId())
                 .username(resume.getUser().getUsername())
                 .title(resume.getTitle())

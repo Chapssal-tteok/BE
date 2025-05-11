@@ -18,7 +18,7 @@ public class ResumeQaResponseDTO {
 
         private Long resumeQaId;
         private Long resumeId;
-        private Long number;
+        private Integer orderIndex;
         private String question;
         private String answer;
         private String analysis;
@@ -34,7 +34,7 @@ public class ResumeQaResponseDTO {
 
         private Long resumeQaId;
         private Long resumeId;
-        private Long number;
+        private Integer orderIndex;
         private String question;
         private String answer;
         private String analysis;

@@ -1,6 +1,7 @@
 package com.chapssal_tteok.preview.global.client;
 
 import com.chapssal_tteok.preview.domain.interviewqa.dto.InterviewQaRequestDTO;
+import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,25 @@ import java.util.Map;
 public class AiClient {
 
     private final WebClient aiWebClient;
+
+    public String analyzeResumeQa(ResumeQaRequestDTO.AnalyzeResumeQaDTO req) {
+        Map<String, String> body = Map.of(
+                "resume", req.getResume(),
+                "company", req.getCompany(),
+                "position", req.getPosition()
+        );
+
+        return aiWebClient.post()
+                .uri("/interview/analyze-resume")
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, List<String>>>() {})
+                .map(res -> {
+                    List<String> feedbackList = res.get("feedback");
+                    return (feedbackList != null && !feedbackList.isEmpty()) ? String.join("\n", feedbackList) : null;
+                })
+                .block();
+    }
 
     public String generateQuestion(InterviewQaRequestDTO.GenerateQuestionDTO req) {
         Map<String, Object> body = Map.of(

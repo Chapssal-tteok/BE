@@ -41,6 +41,18 @@ public class ResumeQaController {
         return ApiResponse.onSuccess(ResumeQaConverter.toResumeQaDTO(resumeQa));
     }
 
+    @Operation(summary = "자기소개서 문항 및 답변 분석", description = "자기소개서 문항 및 답변을 기반으로 AI가 분석 결과를 반환합니다.")
+    @PostMapping("/{qa_id}/analyze")
+    public ApiResponse<ResumeQaResponseDTO.ResumeQaDTO> analyzeResumeQa(
+            @PathVariable Long resume_id,
+            @PathVariable Long qa_id,
+            @RequestBody @Valid ResumeQaRequestDTO.AnalyzeResumeQaDTO request) {
+
+        ResumeQa resumeQa = resumeQaCommandService.analyzeResumeQa(resume_id, qa_id, request);
+
+        return ApiResponse.onSuccess(ResumeQaConverter.toResumeQaDTO(resumeQa));
+    }
+
     @Operation(summary = "자기소개서 문항 및 답변 삭제", description = "자기소개서 문답 ID를 통해 특정 자기소개서의 문항 및 답변을 삭제합니다.")
     @DeleteMapping("/{qa_id}")
     public ApiResponse<String> deleteResumeQa(
