@@ -9,6 +9,8 @@ public interface InterviewQaCommandService {
 
     InterviewQa generateInterviewQuestion(Long interviewId, InterviewQaRequestDTO.GenerateQuestionDTO request);
 
+    InterviewQa analyzeAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.AnalyzeAnswerDTO request);
+
     InterviewQa updateQuestion(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateQuestionDTO request);
 
     InterviewQa updateAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateAnswerDTO request);

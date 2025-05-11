@@ -35,6 +35,19 @@ public class InterviewQaRequestDTO {
     }
 
     @Getter
+    public static class AnalyzeAnswerDTO {
+
+        @NotBlank
+        private String question;
+
+        @NotBlank
+        private String answer;
+
+        @NotBlank
+        private String resume;
+    }
+
+    @Getter
     public static class UpdateInterviewQaDTO {
 
         private String question;

@@ -33,4 +33,20 @@ public class AiClient {
                 })
                 .block();
     }
+
+    public String analyzeAnswer(String question, String answer, String resume) {
+        Map<String, String> body = Map.of(
+                "question", question,
+                "answer", answer,
+                "resume", resume
+        );
+
+        return aiWebClient.post()
+                .uri("/interview/analyze-answer")
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, String>>() {})
+                .map(res -> res.getOrDefault("analysis", null))
+                .block();
+    }
 }

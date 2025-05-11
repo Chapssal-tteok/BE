@@ -58,6 +58,18 @@ public class InterviewQaController {
         return ApiResponse.onSuccess(InterviewQaConverter.toCreateInterviewQaResultDTO(interviewQa));
     }
 
+    @Operation(summary = "AI 면접 답변 분석", description = "질문, 답변, 자기소개서를 기반으로 AI가 분석 결과를 반환합니다.")
+    @PostMapping("/{qa_id}/analyze")
+    public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> analyzeAnswer(
+            @PathVariable Long interview_id,
+            @PathVariable Long qa_id,
+            @RequestBody @Valid InterviewQaRequestDTO.AnalyzeAnswerDTO request) {
+
+        InterviewQa updatedQa = interviewQaCommandService.analyzeAnswer(interview_id, qa_id, request);
+
+        return ApiResponse.onSuccess(InterviewQaConverter.toInterviewQaDTO(updatedQa));
+    }
+
     @Operation(summary = "면접 질문 수정", description = "면접 문답 ID를 통해 질문을 수정하고, 답변과 분석 내용을 초기화합니다.")
     @PatchMapping("/{qa_id}/question")
     public ApiResponse<InterviewQaResponseDTO.InterviewQaDTO> updateQuestion(

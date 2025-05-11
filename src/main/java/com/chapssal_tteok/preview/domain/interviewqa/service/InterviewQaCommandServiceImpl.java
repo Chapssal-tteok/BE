@@ -72,6 +72,21 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
 
     @Override
     @Transactional
+    public InterviewQa analyzeAnswer(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.AnalyzeAnswerDTO request) {
+
+        // 현재 로그인된 사용자 정보 가져오기
+        User user = securityUtil.getCurrentUser();
+
+        InterviewQa interviewQa = validateQaOwnership(interviewId, interviewQaId, user);
+
+        String analysis = aiClient.analyzeAnswer(request.getQuestion(), request.getAnswer(), request.getResume());
+        interviewQa.updateAnalysis(analysis);
+
+        return interviewQaRepository.save(interviewQa);
+    }
+
+    @Override
+    @Transactional
     public InterviewQa updateQuestion(Long interviewId, Long interviewQaId, InterviewQaRequestDTO.UpdateQuestionDTO request) {
 
         // 현재 로그인된 사용자 정보 가져오기
