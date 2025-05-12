@@ -38,7 +38,11 @@ public class ResumeQaRequestDTO {
     @Getter
     public static class AnalyzeResumeQaDTO {
 
-        @Schema(description = "자기소개서 전체 본문", example = "저는 적극적인 성격으로 팀 프로젝트에서...")
+        @Schema(description = "자기소개서 질문", example = "지원 동기와 입사 후 포부를 작성해주세요.")
+        @NotBlank
+        private String question;
+
+        @Schema(description = "자기소개서 답변", example = "저는 적극적인 성격으로 팀 프로젝트에서...")
         @NotBlank
         private String resume;
 
