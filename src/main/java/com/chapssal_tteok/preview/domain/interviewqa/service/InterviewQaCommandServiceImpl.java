@@ -13,6 +13,9 @@ import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewH
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.UserHandler;
 import com.chapssal_tteok.preview.global.client.AiClient;
+import com.chapssal_tteok.preview.global.common.enums.VoiceMode;
+import com.chapssal_tteok.preview.infra.google.GoogleTtsService;
+import com.chapssal_tteok.preview.infra.s3.S3Service;
 import com.chapssal_tteok.preview.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
     private final InterviewRepository interviewRepository;
     private final SecurityUtil securityUtil;
     private final AiClient aiClient;
+    private final GoogleTtsService googleTtsService;
+    private final S3Service s3Service;
 
     @Override
     @Transactional
@@ -56,13 +61,24 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
 
         int nextOrder = interviewQaRepository.findMaxOrderIndexByInterview(interview) + 1;
 
-        // AI 서버 호출
+        // AI 질문 생성
         String question = aiClient.generateQuestion(request);
+
+        String audioUrl = null;
+        if (request.getMode() == VoiceMode.VOICE) {
+            try {
+                byte[] audioBytes = googleTtsService.synthesizeText(question);
+                audioUrl = s3Service.upload(audioBytes, "question.mp3", "audio/mpeg", "tts");
+            } catch (Exception e) {
+                throw new RuntimeException("TTS 음성 생성 중 오류 발생", e);
+            }
+        }
 
         InterviewQa interviewQa = InterviewQa.builder()
                 .interview(interview)
                 .orderIndex(nextOrder)
                 .question(question)
+                .questionAudio(audioUrl)
                 .build();
 
         return interviewQaRepository.save(interviewQa);
@@ -80,13 +96,24 @@ public class InterviewQaCommandServiceImpl implements InterviewQaCommandService 
 
         int nextOrder = interviewQaRepository.findMaxOrderIndexByInterview(interview) + 1;
 
-        // AI 서버 호출
+        // AI 추가 질문 생성
         String question = aiClient.generateFollowUp(request);
+
+        String audioUrl = null;
+        if (request.getMode() == VoiceMode.VOICE) {
+            try {
+                byte[] audioBytes = googleTtsService.synthesizeText(question);
+                audioUrl = s3Service.upload(audioBytes, "followup.mp3", "audio/mpeg", "tts");
+            } catch (Exception e) {
+                throw new RuntimeException("TTS 음성 생성 중 오류 발생", e);
+            }
+        }
 
         InterviewQa interviewQa = InterviewQa.builder()
                 .interview(interview)
                 .orderIndex(nextOrder)
                 .question(question)
+                .questionAudio(audioUrl)
                 .build();
 
         return interviewQaRepository.save(interviewQa);
