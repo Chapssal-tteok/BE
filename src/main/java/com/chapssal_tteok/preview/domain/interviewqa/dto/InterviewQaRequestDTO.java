@@ -46,7 +46,6 @@ public class InterviewQaRequestDTO {
         )
         private String resumeContent;
 
-        @NotBlank
         @Schema(example = "VOICE", description = "음성 모드: TEXT or VOICE")
         private VoiceMode mode = VoiceMode.TEXT;  // 기본값 TEXT
     }
@@ -62,7 +61,7 @@ public class InterviewQaRequestDTO {
         @NotBlank
         private String answer;
 
-        @Schema(example = "VOICE", description = "음성 모드: TEXT or VOICE", allowableValues = {"TEXT", "VOICE"})
+        @Schema(example = "VOICE", description = "음성 모드: TEXT or VOICE")
         private VoiceMode mode = VoiceMode.TEXT;
     }
 
@@ -122,9 +121,6 @@ public class InterviewQaRequestDTO {
 
         @Schema(description = "답변 음성 URL", example = "https://s3.../tts/a.mp3")
         private String answerAudio;
-
-        @Schema(example = "VOICE", description = "음성 모드: TEXT or VOICE", allowableValues = {"TEXT", "VOICE"})
-        private VoiceMode mode = VoiceMode.TEXT;
     }
 
     @Getter
