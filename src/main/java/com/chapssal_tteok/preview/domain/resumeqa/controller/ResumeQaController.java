@@ -59,7 +59,7 @@ public class ResumeQaController {
         return ApiResponse.onSuccess(ResumeQaConverter.toResumeQaDTO(resumeQa));
     }
 
-    @Operation(summary = "자기소개서 문항 및 답변 분석", description = "자기소개서 문항 및 답변을 기반으로 AI가 분석 결과를 반환합니다.")
+    @Operation(summary = "AI 자기소개서 문항 및 답변 분석", description = "자기소개서 문항 및 답변을 기반으로 AI가 분석 결과를 반환합니다.")
     @PostMapping("/{qa_id}/analyze")
     public ApiResponse<ResumeQaResponseDTO.ResumeQaDTO> analyzeResumeQa(
             @PathVariable Long resume_id,

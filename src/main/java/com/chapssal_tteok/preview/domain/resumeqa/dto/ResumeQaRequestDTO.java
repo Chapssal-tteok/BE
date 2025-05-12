@@ -44,7 +44,7 @@ public class ResumeQaRequestDTO {
 
         @Schema(description = "자기소개서 답변", example = "저는 적극적인 성격으로 팀 프로젝트에서...")
         @NotBlank
-        private String resume;
+        private String answer;
 
         @Schema(description = "지원 회사명", example = "카카오")
         @NotBlank
