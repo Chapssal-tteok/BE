@@ -48,6 +48,10 @@ dependencies {
 
 	// WebFlux
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// google tts, stt
+	implementation 'com.google.cloud:google-cloud-texttospeech:2.30.0'
+	implementation 'com.google.cloud:google-cloud-speech:2.26.0'
 }
 
 tasks.named('test') {
