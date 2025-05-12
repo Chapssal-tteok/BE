@@ -7,9 +7,7 @@ import com.chapssal_tteok.preview.infra.google.GoogleTtsService;
 import com.chapssal_tteok.preview.infra.s3.S3Service;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,7 +42,7 @@ public class VoiceController {
         String originalFileName = file.getOriginalFilename();
         String audioUrl = s3Service.upload(audioData, originalFileName, file.getContentType(), "stt");
 
-        String transcript = googleSttService.recognizeSpeech(audioData);
+        String transcript = googleSttService.recognizeSpeechFromMp3(audioData);
 
         return ApiResponse.onSuccess(Map.of(
                 "transcript", transcript,
