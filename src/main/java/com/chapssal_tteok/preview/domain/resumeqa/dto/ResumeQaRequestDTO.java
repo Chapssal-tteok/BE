@@ -49,8 +49,5 @@ public class ResumeQaRequestDTO {
         @Schema(description = "지원 직무명", example = "프론트엔드 개발자")
         @NotBlank
         private String position;
-
-        @Schema(description = "음성 모드: TEXT 또는 VOICE", example = "VOICE", allowableValues = {"TEXT", "VOICE"})
-        private VoiceMode mode = VoiceMode.TEXT;
     }
 }
