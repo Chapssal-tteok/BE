@@ -33,7 +33,7 @@ public class VoiceController {
         return ApiResponse.onSuccess(audioUrl);
     }
 
-    @Operation(summary = "음성을 텍스트로 변환 (STT)", description = "업로드된 한국어 음성 파일을 텍스트로 변환합니다. (16kHz PCM WAV 권장)")
+    @Operation(summary = "음성을 텍스트로 변환 (STT)", description = "업로드된 한국어 음성 파일을 텍스트로 변환합니다.")
     @PostMapping(value = "/stt", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<Map<String, String>> speechToText(@RequestParam("file") MultipartFile file) throws Exception {
 
