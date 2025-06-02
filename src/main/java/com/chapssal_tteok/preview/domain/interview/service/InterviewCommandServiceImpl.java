@@ -4,6 +4,8 @@ import com.chapssal_tteok.preview.domain.interview.converter.InterviewConverter;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewRequestDTO;
 import com.chapssal_tteok.preview.domain.interview.entity.Interview;
 import com.chapssal_tteok.preview.domain.interview.repository.InterviewRepository;
+import com.chapssal_tteok.preview.domain.resume.entity.Resume;
+import com.chapssal_tteok.preview.domain.resume.repository.ResumeRepository;
 import com.chapssal_tteok.preview.domain.user.entity.Role;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class InterviewCommandServiceImpl implements InterviewCommandService {
 
     private final InterviewRepository interviewRepository;
+    private final ResumeRepository resumeRepository;
     private final SecurityUtil securityUtil;
 
     @Override
@@ -28,7 +31,10 @@ public class InterviewCommandServiceImpl implements InterviewCommandService {
         // 현재 로그인된 사용자 정보 가져오기
         User user = securityUtil.getCurrentUser();
 
-        Interview newInterview = InterviewConverter.toInterview(request, user);
+        Resume resume = resumeRepository.findById(request.getResumeId())
+                .orElseThrow(() -> new InterviewHandler(ErrorStatus.RESUME_NOT_FOUND));
+
+        Interview newInterview = InterviewConverter.toInterview(request, user, resume);
 
         return interviewRepository.save(newInterview);
     }

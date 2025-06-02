@@ -1,6 +1,7 @@
 package com.chapssal_tteok.preview.domain.interview.entity;
 
 import com.chapssal_tteok.preview.domain.interviewqa.entity.InterviewQa;
+import com.chapssal_tteok.preview.domain.resume.entity.Resume;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 import com.chapssal_tteok.preview.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -23,6 +24,10 @@ public class Interview extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 
     private String title;
 

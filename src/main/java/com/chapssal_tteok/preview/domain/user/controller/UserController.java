@@ -3,11 +3,9 @@ package com.chapssal_tteok.preview.domain.user.controller;
 import com.chapssal_tteok.preview.domain.interview.converter.InterviewConverter;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewResponseDTO;
 import com.chapssal_tteok.preview.domain.interview.entity.Interview;
-import com.chapssal_tteok.preview.domain.interview.service.InterviewQueryService;
 import com.chapssal_tteok.preview.domain.resume.converter.ResumeConverter;
 import com.chapssal_tteok.preview.domain.resume.dto.ResumeResponseDTO;
 import com.chapssal_tteok.preview.domain.resume.entity.Resume;
-import com.chapssal_tteok.preview.domain.resume.service.ResumeQueryService;
 import com.chapssal_tteok.preview.domain.user.converter.UserConverter;
 import com.chapssal_tteok.preview.domain.user.dto.UserRequestDTO;
 import com.chapssal_tteok.preview.domain.user.dto.UserResponseDTO;
@@ -32,8 +30,6 @@ public class UserController {
 
     private final UserCommandService userCommandService;
     private final UserQueryService userQueryService;
-    private final ResumeQueryService resumeQueryService;
-    private final InterviewQueryService interviewQueryService;
 
     @Operation(summary = "사용자 아이디 존재 여부 확인", description = "입력한 사용자 아이디가 이미 존재하는지 확인합니다.")
     @GetMapping("/exist")
@@ -86,5 +82,14 @@ public class UserController {
                 .collect(Collectors.toList());
 
         return ApiResponse.onSuccess(response);
+    }
+
+    @Operation(summary = "사용자 탈퇴", description = "현재 로그인된 사용자를 탈퇴시킵니다.")
+    @DeleteMapping
+    public ApiResponse<String> deleteUser() {
+
+        userCommandService.deleteUser();
+
+        return ApiResponse.onSuccess("회원 탈퇴가 성공적으로 완료되었습니다.");
     }
 }

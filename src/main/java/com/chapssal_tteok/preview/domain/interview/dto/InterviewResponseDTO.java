@@ -20,6 +20,7 @@ public class InterviewResponseDTO {
 
         private Long interviewId;
         private String username;
+        private Long resumeId;
         private String title;
         private String company;
         private String position;
@@ -35,6 +36,7 @@ public class InterviewResponseDTO {
 
         private Long interviewId;
         private String username;
+        private Long resumeId;
         private String title;
         private String company;
         private String position;
