@@ -1,6 +1,5 @@
 package com.chapssal_tteok.preview.domain.resumeqa.service;
 
-import com.chapssal_tteok.preview.domain.interviewqa.entity.InterviewQa;
 import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 
 import java.util.List;

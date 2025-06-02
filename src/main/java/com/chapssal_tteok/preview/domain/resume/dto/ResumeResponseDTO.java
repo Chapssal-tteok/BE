@@ -1,6 +1,5 @@
 package com.chapssal_tteok.preview.domain.resume.dto;
 
-import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaResponseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class ResumeResponseDTO {
 

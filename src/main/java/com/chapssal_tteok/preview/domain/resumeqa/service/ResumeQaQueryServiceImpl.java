@@ -1,13 +1,10 @@
 package com.chapssal_tteok.preview.domain.resumeqa.service;
 
-import com.chapssal_tteok.preview.domain.interview.entity.Interview;
-import com.chapssal_tteok.preview.domain.interviewqa.entity.InterviewQa;
 import com.chapssal_tteok.preview.domain.resume.entity.Resume;
 import com.chapssal_tteok.preview.domain.resume.repository.ResumeRepository;
 import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 import com.chapssal_tteok.preview.domain.resumeqa.repository.ResumeQaRepository;
 import com.chapssal_tteok.preview.global.apiPayload.code.status.ErrorStatus;
-import com.chapssal_tteok.preview.global.apiPayload.exception.handler.InterviewQaHandler;
 import com.chapssal_tteok.preview.global.apiPayload.exception.handler.ResumeQaHandler;
 import com.chapssal_tteok.preview.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
