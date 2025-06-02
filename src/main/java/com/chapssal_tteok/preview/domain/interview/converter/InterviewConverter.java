@@ -3,6 +3,7 @@ package com.chapssal_tteok.preview.domain.interview.converter;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewRequestDTO;
 import com.chapssal_tteok.preview.domain.interview.dto.InterviewResponseDTO;
 import com.chapssal_tteok.preview.domain.interview.entity.Interview;
+import com.chapssal_tteok.preview.domain.resume.entity.Resume;
 import com.chapssal_tteok.preview.domain.user.entity.User;
 
 public class InterviewConverter {
@@ -12,6 +13,7 @@ public class InterviewConverter {
         return InterviewResponseDTO.CreateInterviewResultDTO.builder()
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
+                .resumeId(interview.getResume().getId())
                 .title(interview.getTitle())
                 .company(interview.getCompany())
                 .position(interview.getPosition())
@@ -24,6 +26,7 @@ public class InterviewConverter {
         return InterviewResponseDTO.InterviewDTO.builder()
                 .interviewId(interview.getId())
                 .username(interview.getUser().getUsername())
+                .resumeId(interview.getResume().getId())
                 .title(interview.getTitle())
                 .company(interview.getCompany())
                 .position(interview.getPosition())
@@ -32,10 +35,11 @@ public class InterviewConverter {
                 .build();
     }
 
-    public static Interview toInterview(InterviewRequestDTO.CreateInterviewDTO request, User user) {
+    public static Interview toInterview(InterviewRequestDTO.CreateInterviewDTO request, User user, Resume resume) {
 
         return Interview.builder()
                 .user(user)
+                .resume(resume)
                 .title(request.getTitle())
                 .company(request.getCompany())
                 .position(request.getPosition())

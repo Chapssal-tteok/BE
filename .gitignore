@@ -38,3 +38,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Google TTS, STT ###
+/src/main/resources/google-key.json

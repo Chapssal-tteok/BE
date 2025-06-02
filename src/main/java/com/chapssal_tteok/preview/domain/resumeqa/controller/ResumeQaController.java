@@ -5,11 +5,14 @@ import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaRequestDTO;
 import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaResponseDTO;
 import com.chapssal_tteok.preview.domain.resumeqa.entity.ResumeQa;
 import com.chapssal_tteok.preview.domain.resumeqa.service.ResumeQaCommandService;
+import com.chapssal_tteok.preview.domain.resumeqa.service.ResumeQaQueryService;
 import com.chapssal_tteok.preview.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth/resumes/{resume_id}/qas")
@@ -17,6 +20,21 @@ import org.springframework.web.bind.annotation.*;
 public class ResumeQaController {
 
     private final ResumeQaCommandService resumeQaCommandService;
+    private final ResumeQaQueryService resumeQaQueryService;
+
+    @Operation(summary = "자기소개서의 모든 문답 조회", description = "해당 자기소개서 ID에 속한 모든 문답을 순서대로 반환합니다.")
+    @GetMapping
+    public ApiResponse<List<ResumeQaResponseDTO.ResumeQaDTO>> getResumeQasByResumeId(
+            @PathVariable("resume_id") Long resumeId) {
+
+        List<ResumeQa> qas = resumeQaQueryService.getOrderedQasByResumeId(resumeId);
+
+        List<ResumeQaResponseDTO.ResumeQaDTO> response = qas.stream()
+                .map(ResumeQaConverter::toResumeQaDTO)
+                .toList();
+
+        return ApiResponse.onSuccess(response);
+    }
 
     @Operation(summary = "자기소개서 문항 및 답변 생성", description = "새로운 자기소개서 문항 및 답변을 생성합니다.")
     @PostMapping
@@ -41,7 +59,7 @@ public class ResumeQaController {
         return ApiResponse.onSuccess(ResumeQaConverter.toResumeQaDTO(resumeQa));
     }
 
-    @Operation(summary = "자기소개서 문항 및 답변 분석", description = "자기소개서 문항 및 답변을 기반으로 AI가 분석 결과를 반환합니다.")
+    @Operation(summary = "AI 자기소개서 문항 및 답변 분석", description = "자기소개서 문항 및 답변을 기반으로 AI가 분석 결과를 반환합니다.")
     @PostMapping("/{qa_id}/analyze")
     public ApiResponse<ResumeQaResponseDTO.ResumeQaDTO> analyzeResumeQa(
             @PathVariable Long resume_id,

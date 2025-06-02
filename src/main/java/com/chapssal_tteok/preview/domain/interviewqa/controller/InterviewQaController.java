@@ -22,7 +22,7 @@ public class InterviewQaController {
     private final InterviewQaCommandService interviewQaCommandService;
     private final InterviewQaQueryService interviewQaQueryService;
 
-    @Operation(summary = "면접 세트의 모든 문답 조회", description = "해당 면접 ID에 속한 모든 문답을 순서대로 반환합니다.")
+    @Operation(summary = "면접의 모든 문답 조회", description = "해당 면접 ID에 속한 모든 문답을 순서대로 반환합니다.")
     @GetMapping
     public ApiResponse<List<InterviewQaResponseDTO.InterviewQaDTO>> getInterviewQasByInterviewId(
             @PathVariable("interview_id") Long interviewId) {

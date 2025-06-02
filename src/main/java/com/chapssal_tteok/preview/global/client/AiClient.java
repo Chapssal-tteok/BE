@@ -18,7 +18,8 @@ public class AiClient {
 
     public String analyzeResumeQa(ResumeQaRequestDTO.AnalyzeResumeQaDTO req) {
         Map<String, String> body = Map.of(
-                "resume", req.getResume(),
+                "question", req.getQuestion(),
+                "resume", req.getAnswer(),
                 "company", req.getCompany(),
                 "position", req.getPosition()
         );

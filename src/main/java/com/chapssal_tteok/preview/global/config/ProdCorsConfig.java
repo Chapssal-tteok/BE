@@ -12,7 +12,7 @@ public class ProdCorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://172.24.112.1:3000") // 프론트 주소
+                .allowedOrigins("https://chapssaltteok-preview.vercel.app") // 프론트 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
