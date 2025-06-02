@@ -1,10 +1,14 @@
 package com.chapssal_tteok.preview.domain.user.entity;
 
+import com.chapssal_tteok.preview.domain.interview.entity.Interview;
+import com.chapssal_tteok.preview.domain.resume.entity.Resume;
 import com.chapssal_tteok.preview.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,6 +43,12 @@ public class User extends BaseEntity {
     private Boolean active = true; // 활성화 여부 (기본값 true)
 
     private LocalDateTime deactivatedAt; // 비활성화 시간
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Resume> resumes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Interview> interviews = new ArrayList<>();
 
     public boolean updateRole(Role newRole) {
         if (newRole != null && !newRole.equals(this.role)) {

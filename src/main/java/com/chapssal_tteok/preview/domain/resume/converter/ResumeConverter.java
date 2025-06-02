@@ -3,11 +3,7 @@ package com.chapssal_tteok.preview.domain.resume.converter;
 import com.chapssal_tteok.preview.domain.resume.dto.ResumeRequestDTO;
 import com.chapssal_tteok.preview.domain.resume.dto.ResumeResponseDTO;
 import com.chapssal_tteok.preview.domain.resume.entity.Resume;
-import com.chapssal_tteok.preview.domain.resumeqa.dto.ResumeQaResponseDTO;
 import com.chapssal_tteok.preview.domain.user.entity.User;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ResumeConverter {
 

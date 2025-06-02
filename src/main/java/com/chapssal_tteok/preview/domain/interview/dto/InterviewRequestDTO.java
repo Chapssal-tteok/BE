@@ -2,12 +2,17 @@ package com.chapssal_tteok.preview.domain.interview.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 public class InterviewRequestDTO {
 
     @Getter
     public static class CreateInterviewDTO {
+
+        @Schema(description = "자기소개서 ID", example = "3")
+        @NotNull(message = "자기소개서 ID는 필수 입력 값입니다.")
+        private Long resumeId;
 
         @Schema(description = "면접 제목", example = "카카오 백엔드 면접 준비")
         @NotBlank(message = "제목은 필수 입력 값입니다.")
@@ -24,7 +29,6 @@ public class InterviewRequestDTO {
 
     @Getter
     public static class UpdateInterviewDTO {
-
 
         @Schema(description = "수정할 면접 제목", example = "라인 백엔드 면접 준비")
         private String title;
