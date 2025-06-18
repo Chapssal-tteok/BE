@@ -1,5 +1,7 @@
 # PreView Backend Repository
 
+> 이 레포지토리는 **AI 기반 자기소개서 분석 및 면접 준비 서비스 PreView**의 백엔드 서버를 위한 Spring Boot 기반 프로젝트입니다.
+
 ## 👥 팀 소개
 
 **Team 30 - 찹쌀떡**
@@ -12,7 +14,7 @@
 
 ## 🔍 프로젝트 개요
 
-**PreView**는 GPT-4o와 RAG 기반 기술을 활용하여 자기소개서 분석과 맞춤형 면접 연습을 지원하는 **AI 면접 시뮬레이션 서비스**입니다.  
+**PreView**는 GPT-4o와 RAG 기반 기술을 활용하여 자기소개서 분석과 맞춤형 면접 연습을 지원하는 **AI 기반 자기소개서 분석 및 면접 준비 서비스 PreView**입니다.  
 취업 준비자가 보다 효율적으로 자기소개서를 개선하고, 실제 면접처럼 연습할 수 있도록 돕는 것이 핵심 목표입니다.
 
 ### 🎯 주요 목표
@@ -25,6 +27,9 @@
 - **Perplexity AI + ChromaDB** 기반 RAG 시스템으로 기업 및 직무 맞춤형 질문 생성
 - **Google TTS/STT** 기술을 활용한 음성 기반 면접 연습 기능 제공
 - **Spring Boot + FastAPI** 구조로 백엔드 서버와 AI 서버 분리 구성
+
+> 💡 **참고:** GPT-4o 분석 및 Perplexity 기반 질문 생성을 담당하는 FastAPI AI 서버는 **별도 레포지토리**에서 관리됩니다.  
+> 👉 본 레포지토리는 해당 AI 서버와의 연동(WebClient 호출) 기능만을 담당합니다.
 
 ### 🛠 제공 기능
 1. **자기소개서 피드백**  
@@ -49,7 +54,8 @@ PreView는 누구나 **혼자서도 실전 면접을 준비할 수 있는 AI 면
 | 비동기 통신 | Spring WebFlux (비동기 외부 API 호출에 사용) |
 | 배포 방식 | WAR 패키징, AWS EC2 기반 수동 배포 |
 | 클라우드 연동 | AWS S3, Google Cloud TTS/STT |
-| 문서화 도구   | Swagger UI (SpringDoc OpenAPI 2.5.0) |
+| 문서화 도구 | Swagger UI (SpringDoc OpenAPI 2.5.0) |
+| 인프라 도구 | FFmpeg – mp3 → wav 변환 (Google STT 입력 전처리용) |
 
 ### 📦 주요 라이브러리
 
@@ -72,7 +78,7 @@ PreView는 누구나 **혼자서도 실전 면접을 준비할 수 있는 AI 면
 
 ```
 preview-backend/
-├── build.gradle
+├── build.gradle # Gradle 설정 파일 (의존성 및 빌드 설정 관리)
 ├── settings.gradle
 ├── README.md
 ├── src
