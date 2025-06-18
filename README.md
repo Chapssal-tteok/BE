@@ -164,24 +164,55 @@ cd preview-backend
 `src/main/resources/application.yml` 파일을 다음과 같이 작성합니다:
 
 ```yaml
-server:
-  port: 8080
-
 spring:
+  profiles:
+    active: dev
+    include: google
   datasource:
     url: jdbc:mysql://<DB_HOST>:3306/<DB_NAME>
     username: <DB_USERNAME>
     password: <DB_PASSWORD>
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
   jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: false
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+        default_batch_fetch_size: 1000
 
 jwt:
-  secret: <JWT_SECRET>
+  secret-key: <JWT_SECRET>
+  expiration:
+    access: 3600000 # Access Token 만료 시간 (1시간: 밀리초 단위)
+    refresh: 604800000 # Refresh Token 만료 시간 (7일: 밀리초 단위)
+
+google:
+  credentials:
+    path: classpath:google-key.json
+
+cloud:
+  aws:
+    s3:
+      bucket: preview-s3-bucket
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
 
 ai:
-  server-url: http://localhost:8000
+  server-url: http://<AI_SERVER_HOST>:<PORT>  # 예: http://localhost:8000
+
+cors:
+  allowed-origins:
+    - https://<YOUR_FRONTEND_DOMAIN>  # 예: https://your-frontend.vercel.app
 ```
 
 #### 🔹 Google Cloud 서비스 키 등록
@@ -197,14 +228,14 @@ Google Cloud Console에서 서비스 계정 키(JSON)를 발급받아 저장
 #### 🔧 JDK 설치
 
 - JDK 17 이상 필요
-- AdoptOpenJDK 또는 IntelliJ 내장 JDK 설정 사용 가능
+- [Adoptium OpenJDK](https://adoptium.net/) 또는 IntelliJ 내장 JDK 설정 사용 가능
 
 #### 🔧 ffmpeg 설치 (음성 처리 기능에 필요)
-| OS | 명령어 |
+| OS | 설치 명령어 또는 경로 |
 |----|-------|
 | macOS	| `brew install ffmpeg` |
 | Ubuntu | `sudo apt install ffmpeg` |
-| Windows | 공식 홈페이지에서 다운로드 후 환경 변수 등록 |
+| Windows | [ffmpeg 공식 홈페이지](https://ffmpeg.org/download.html)에서 ZIP 파일 다운로드 후 `bin/` 디렉토리를 시스템 환경 변수 `PATH`에 추가 |
 
 ### 4️⃣ 프로젝트 빌드
 

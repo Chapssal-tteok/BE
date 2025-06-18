@@ -1,5 +1,6 @@
 package com.chapssal_tteok.preview.global.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -11,10 +12,13 @@ import java.time.Duration;
 @Configuration
 public class WebClientConfig {
 
+    @Value("${ai.server-url}")
+    private String aiServerUrl;
+
     @Bean
     public WebClient aiWebClient() {
         return WebClient.builder()
-                .baseUrl("http://43.201.82.59:8000") // AI 서버의 IP 주소
+                .baseUrl(aiServerUrl)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create()
                                 .responseTimeout(Duration.ofSeconds(30))
