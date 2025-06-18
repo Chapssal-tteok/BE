@@ -117,37 +117,6 @@ preview-backend/
 | Google Cloud | TTS / STT 사용을 위한 서비스 계정 키 |
 | AWS | S3 버킷 및 IAM 권한 |
 
-### 📁 필요한 설정 파일
-
-#### 1. `src/main/resources/application.yml`
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mysql://<your-rds-host>:3306/<your-db-name>
-    username: <your-db-username>
-    password: <your-db-password>
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-jwt:
-  secret: <your-jwt-secret>
-
-ai:
-  server-url: http://<your-ai-server-host>:8000
-```
-
-#### 2. `src/main/resources/google-key.json`
-
-Google Cloud Console에서 발급받은 서비스 계정 키 파일 (TTS/STT 기능용)
-
-파일명은 그대로 google-key.json으로 유지해야 함
-
 ## 🚀 시작하기
 
 ### 1️⃣ 레포지토리 클론
