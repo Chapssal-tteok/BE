@@ -227,7 +227,9 @@ TTS/STT 기능을 사용하기 위해 Google Cloud에서 발급받은 **서비�
 java -jar build/libs/preview-backend-0.0.1-SNAPSHOT.war
 ```
 
-빌드 결과물인 .war 파일은 build/libs/ 디렉토리에 생성됩니다.
+빌드 결과물인 .war 파일은 build/libs/ 디렉토리에 생성되며, 이 .war 파일을 실행시키면 서버가 실행됩니다.
+
+실제 배포 시에는 이 .war 실행 방식 사용을 권장합니다.
 
 - 기본 실행 주소: http://localhost:8080
 - Swagger 문서: http://localhost:8080/swagger-ui/index.html
