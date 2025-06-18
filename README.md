@@ -12,7 +12,6 @@
 
 ## 🔍 프로젝트 개요
 
-
 **PreView**는 GPT-4o와 RAG 기반 기술을 활용하여 자기소개서 분석과 맞춤형 면접 연습을 지원하는 **AI 면접 시뮬레이션 서비스**입니다.  
 취업 준비자가 보다 효율적으로 자기소개서를 개선하고, 실제 면접처럼 연습할 수 있도록 돕는 것이 핵심 목표입니다.
 
@@ -186,11 +185,11 @@ cors:
 
 #### 🔹 Google Cloud 서비스 키 등록
 
-TTS/STT 기능을 사용하기 위해 `google-key.json` 파일을 `src/main/resources/` 경로에 추가해야 합니다.
+TTS/STT 기능을 사용하기 위해 Google Cloud에서 발급받은 **서비스 계정 키(JSON)** 파일을 `src/main/resources/` 경로에 추가합니다.
 
-Google Cloud Console에서 서비스 계정 키(JSON)를 발급받아 저장
+파일명은 반드시 `google-key.json` 으로 유지해야 하며, 프로젝트 내 설정(`application.yml`)과 일치해야 합니다.
 
-파일명은 google-key.json 그대로 유지해야 합니다.
+서비스 키는 [Google Cloud Console](https://console.cloud.google.com/)에서 생성할 수 있습니다.
 
 ### 3️⃣ 필수 도구 설치
 
@@ -206,17 +205,29 @@ Google Cloud Console에서 서비스 계정 키(JSON)를 발급받아 저장
 | Ubuntu | `sudo apt install ffmpeg` |
 | Windows | [ffmpeg 공식 홈페이지](https://ffmpeg.org/download.html)에서 ZIP 파일 다운로드 후 `bin/` 디렉토리를 시스템 환경 변수 `PATH`에 추가 |
 
-### 4️⃣ 프로젝트 빌드
+### 4️⃣ 서버 실행
 
-```bash
-./gradlew build
-```
+#### ▶️ 방법 1: 개발 환경에서 실행
 
-### 5️⃣ 서버 실행
+개발 시에는 Gradle이 제공하는 `bootRun` 명령어를 통해 실행할 수 있습니다.
 
 ```bash
 ./gradlew bootRun
 ```
+
+#### ▶️ 방법 2: 배포 환경 또는 수동 실행용 .war 빌드 & 실행
+
+운영 서버 또는 배포 테스트 환경에서는 .war 파일을 빌드한 뒤 직접 실행하는 방식을 사용합니다.
+
+```bash
+# 빌드
+./gradlew build
+
+# 실행
+java -jar build/libs/preview-backend-0.0.1-SNAPSHOT.war
+```
+
+빌드 결과물인 .war 파일은 build/libs/ 디렉토리에 생성됩니다.
 
 - 기본 실행 주소: http://localhost:8080
 - Swagger 문서: http://localhost:8080/swagger-ui/index.html
