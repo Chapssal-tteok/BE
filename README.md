@@ -52,8 +52,6 @@ PreView는 누구나 **혼자서도 실전 면접을 준비할 수 있는 AI 면
 | 클라우드 연동 | AWS S3, Google Cloud TTS/STT |
 | 문서화 도구   | Swagger UI (SpringDoc OpenAPI 2.5.0) |
 
----
-
 ### 📦 주요 라이브러리
 
 | 범주 | 라이브러리명 / 기능 설명 |
@@ -66,8 +64,6 @@ PreView는 누구나 **혼자서도 실전 면접을 준비할 수 있는 AI 면
 | **AWS SDK** | `software.amazon.awssdk:s3` – AWS S3 파일 업로드/관리 |
 | **DB 드라이버**| `mysql-connector-j` – MySQL DB 연결 |
 | **개발 보조**  | `lombok`, `annotationProcessor` – 코드 간결화 |
-
----
 
 이 백엔드 서버는 사용자/자기소개서/면접 관련 데이터를 관리하며,  
 **TTS/STT 음성 처리**, **AI 서버 연동을 위한 WebClient**, **AWS S3 업로드**,  
