@@ -121,8 +121,6 @@ preview-backend/
 | Google Cloud | TTS / STT 사용을 위한 서비스 계정 키 |
 | AWS | S3 버킷 및 IAM 권한 |
 
----
-
 ### 📁 필요한 설정 파일
 
 #### 1. `src/main/resources/application.yml`
@@ -163,8 +161,6 @@ git clone https://github.com/Chapssal-tteok/preview-backend.git
 cd preview-backend
 ```
 
----
-
 ### 2️⃣ 환경 변수 및 설정 파일 구성
 
 #### 🔹 `application.yml` 작성
@@ -200,8 +196,6 @@ Google Cloud Console에서 서비스 계정 키(JSON)를 발급받아 저장
 
 파일명은 google-key.json 그대로 유지해야 합니다.
 
----
-
 ### 3️⃣ 필수 도구 설치
 
 #### 🔧 JDK 설치
@@ -216,15 +210,11 @@ Google Cloud Console에서 서비스 계정 키(JSON)를 발급받아 저장
 | Ubuntu | `sudo apt install ffmpeg` |
 | Windows | 공식 홈페이지에서 다운로드 후 환경 변수 등록 |
 
----
-
 ### 4️⃣ 프로젝트 빌드
 
 ```bash
 ./gradlew build
 ```
-
----
 
 ### 5️⃣ 서버 실행
 
